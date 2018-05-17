@@ -1,0 +1,133 @@
+<div class="main-content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header" data-background-color="red">
+                            <h4 class="title">List of StartUps</h4>
+                            <p class="category" style="font-size:20px">Limit : <strong>2</strong></p><p class="category" style="font-size:20px"> Selected : <strong>{{count}}</strong></p>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-1"></div>
+                            <div class="col-md-1">
+                                <label class="control-label" style="font-size:20px" >Legal Entity</label>
+                            </div>
+                            <div class="col-md-2">
+                                <br/>
+                                <select (ngModelChange)="Legalising($event)" name="legal" id="legal" style="font-size:20px;padding-left:10px;" [(ngModel)]="legal1" #legal="ngModel">
+                                    <option  [value]="i" *ngFor="let i of legalOptions" style="font-size:20px;">{{i}}</option>
+                                </select>
+                            </div>
+                            <div class="col-md-2">
+                                <label class="control-label" style="font-size:20px;padding-left:30px;" >Operational Revenue</label>
+                            </div>
+                            <div class="col-md-2">
+                                <br/>
+                                <select (ngModelChange)="Revenueing($event)" name="revenue" id="revenue" style="font-size:20px;padding-left:10px;" [(ngModel)]="revenue1" #revenue="ngModel">
+                                    <option  [value]="i" *ngFor="let i of legalOptions" style="font-size:20px;">{{i}}</option>
+                                </select>
+                            </div>
+                            <div class="col-md-1">
+                                <label class="control-label" style="font-size:20px" >Working Idea</label>
+                            </div>
+                            <div class="col-md-3">
+                                <br/>
+                                <select (ngModelChange)="Working($event)" name="work" id="work" style="font-size:20px;padding-left:10px;" [(ngModel)]="work1" #work="ngModel">
+                                    <option  [value]="i" *ngFor="let i of legalOptions" style="font-size:20px;">{{i}}</option>
+                                </select>
+                            </div>
+                            
+                    </div>
+                    <br/><br/><br/>
+                    <hr>
+                        <div class="card-content table-responsive">
+                            <table class="table" >
+                                <thead style="font-size:15px;">
+                                    <tr >
+                                        <th><b>Startup Name</b></th>
+                                        <th><b>Startup Idea</b></th>
+                                        <th style="text-align:center;"><b>Description</b></th>
+                                        <th>Legal Entity</th>
+                                        <th>Operational Revenue</th>
+                                        <th>Working Idea</th>
+                                        <th style="text-align:center;"><b>Rating</b></th>
+                                        <th style="text-align:center;"><b>Note</b></th>
+                                        <th class="text-success"><b>Accept</b></th>
+                                        <th class="text-danger"><b>Reject</b></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                        <tr *ngFor="let stup of startups | paginate: {itemsPerPage: 1, currentPage:page, id: '1'}; let i = index" >
+                                                <td (click)="goToForm(stup.sid)" id=stup.sid name=stup.sid>{{stup.startupName}}</td>
+                                                <td>{{stup.startupIdea}}</td>
+                                                <td>{{stup.description}}</td>
+                                                <td>{{stup.legalEntity}}</td>
+                                                <td>{{stup.operationalRevenue}}</td>
+                                                <td>{{stup.workingIdea}}</td>
+                                                <td ><input [name]=stup.rating [(ngModel)]=stup.rating style="border-width:0ch"/></td>
+                                                <td  ><textarea [name]=stup.note rows="2" [(ngModel)]=stup.note style="border-width:0ch"></textarea></td>
+                                                <td  ><input type="radio" [name]=stup.startupName style="height:0%;width:0%;" [id]=stup.startupName  [value]="yes" [checked]="stup.round=='yes'"  (change)="onAcceptReject(stup.sid,'yes')"></td>
+                                                <td ><input type="radio" [name]=stup.startupName style="height:0%;width:0%;" [id]=stup.startupName    [value]="no"   [checked]="stup.round=='no'" (change)="onAcceptReject(stup.sid,'no')"></td>
+                                            </tr>
+                                </tbody>
+                            </table>
+                            <pagination-controls (pageChange)="page = $event" id="1"
+                                maxSize="5"
+                                directionLinks="true"
+                                autoHide="true">
+                            </pagination-controls>
+    
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-6">
+                                <button type="submit" class="btn btn-round" (click)="finalCheck()" style="margin-left:45%;background-color:#1a3f74;font-size:15px;" [disabled]="exceeded==true">Submit</button>
+                            </div>
+                            <div class="col-md-6">
+                                <button class="btn btn-round" (click)="rejecting()" style="margin-left:45%;background-color:#1a3f74;font-size:15px;">Reject all</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+            <div class="row" id="form" name="form">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header" data-background-color="red">
+                                <h4 class="title">Startup Form</h4>
+                                <p class="category">Details about selected startup</p>
+                            </div>
+                            <div class="card-content">
+
+                                    <div><h3 class="text-center">{{currentevalStartup.startupName}}</h3></div>
+                                <div>
+                               <h5> IDEA : </h5> <div style="margin-left:20%"> {{currentevalStartup.startupIdea}}</div>
+                                </div>
+                                <div>
+                                        <h5> DESCRIPTION : </h5>  <div style="margin-left:20%">{{currentevalStartup.description}}</div>
+                                 </div>
+                                 <div>
+                                        <h5> Primary Customer : </h5>  <div style="margin-left:20%">{{currentevalStartup.primaryCustomer}}</div>
+                                 </div>
+                                 <div>
+                                        <h5> Targetted Pain Point : </h5>  <div style="margin-left:20%">{{currentevalStartup.painPoint}}</div>
+                                 </div>
+                                 <div>
+                                        <h5> Operational Revenue : </h5>  <div style="margin-left:20%">{{currentevalStartup.operationalRevenue}}</div>
+                                 </div>
+                               <div class="form-group">
+                                <h5>Rating :</h5> <input class="form-control" [name]=currentevalStartup.rating type="text" [(ngModel)]=currentevalStartup.rating />
+                               </div>
+                               <div class="form-group">
+                               <h5> Note :</h5> <input class="form-control" [name]=currentevalStartup.note type="text" [(ngModel)]=currentevalStartup.note />
+                                </div>
+                            </div>
+                            <div class="form-group ">
+                                <button type="button" class="btn btn-round" (click)="goToTop(currentevalStartup.startupName)" style="margin-left:45%;background-color:#1a3f74;font-size:15px;">Back to list</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+</div>

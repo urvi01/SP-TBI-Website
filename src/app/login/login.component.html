@@ -1,0 +1,43 @@
+<div class="main-content">
+        <div class="container-fluid">
+            <div class="row">
+                    <div class="card">
+                        <div class="card-header" data-background-color="red">
+                            <h4 class="title"><strong>Edit Profile</strong></h4>
+                            <p class="category" style="font-size:17px">Complete your profile</p>
+                        </div>
+                        <div class="card-content">
+                            <form #login="ngForm" (ngSubmit)="Login(login)">
+                            <div [hidden]="login.submitted">
+
+                                    <div class="form-group label-floating is-empty">
+                                            <label class="control-label" style="font-size:20px" for="idea">Username</label>
+                                            <input class="form-control" name="uname" id="uname" required  [(ngModel)]="name1" #uname="ngModel"/>
+                                            <div *ngIf="uname.invalid && (uname.dirty || uname.touched)" class="alert alert-danger">
+                                                <div *ngIf="uname.errors.required">          
+                                                    Startup name is required.
+                                                </div>
+                                            </div>
+                                    </div>  
+
+                                    <div class="form-group label-floating is-empty">
+                                            <label class="control-label" style="font-size:20px" for="idea">Password</label>
+                                            <input class="form-control" name="pass" id="pass" required  [(ngModel)]="pass1" #pass="ngModel"/>
+                                            <div *ngIf="pass.invalid && (pass.dirty || pass.touched)" class="alert alert-danger">
+                                                <div *ngIf="pass.errors.required">          
+                                                    Startup name is required.
+                                                </div>
+                                            </div>
+                                    </div>  
+
+                                    <div class="form-group ">
+                                            <button type="submit" class="btn btn-round" style="background-color:#1a3f74;margin-left:45%;" [disabled]="login.invalid ">Login</button>
+                                    </div>
+
+                            </div>
+                            </form>
+                        </div>
+                    </div>  
+            </div>
+        </div>
+</div>
