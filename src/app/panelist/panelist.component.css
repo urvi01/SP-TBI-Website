@@ -37,3 +37,11 @@ input[type='radio']:checked:after {
 textarea {
     resize: none;
 }
+.heading{
+    font-size: 1.2em;
+    height:40px;
+    -webkit-font-smoothing: antialiased;
+    font-family: "Montserrat", "Helvetica", Arial, sans-serif;
+    font-weight: 300; 
+    /* margin:1em 1em 1em 1em; */
+}

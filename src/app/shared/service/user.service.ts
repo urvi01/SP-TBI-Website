@@ -12,13 +12,11 @@ import { HttpHeaders } from '@angular/common/http';
 
 @Injectable()
 export class UserService{
-
   userType:number;
   category:string;
   userName:string;
 
   constructor(private http:Http) { }
-
   gettingUser(username:string,password:string)
   {
     return this.http.get(''+username+'password='+password)          //getting UserType
@@ -27,7 +25,8 @@ export class UserService{
 
   getList()   //sends list of registration forms to panelist
   {
-    return this.http.get('panelist/'+this.userName)          //getting UserType
+    return this.http.get('assets/data/register.json')
+   // return this.http.get('panelist/'+this.userName)          //getting UserType
     .flatMap((data) =>data.json());
   }
 

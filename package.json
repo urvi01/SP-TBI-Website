@@ -33,6 +33,8 @@
     "jquery": "3.2.1",
     "moment": "2.18.1",
     "ng2-pagination": "^2.0.2",
+    "ngx-modialog": "^5.0.1",
+    "ngx-webstorage": "^2.0.1",
     "npm": "^6.0.0",
     "perfect-scrollbar": "1.1.0",
     "rxjs": "5.4.2",

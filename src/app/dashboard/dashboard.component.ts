@@ -9,7 +9,7 @@ import * as Chartist from 'chartist';
 export class DashboardComponent implements OnInit {
 
   constructor() { }
-  startAnimationForLineChart(chart){
+ /* startAnimationForLineChart(chart){
       let seq: any, delays: any, durations: any;
       seq = 0;
       delays = 80;
@@ -64,11 +64,11 @@ export class DashboardComponent implements OnInit {
       });
 
       seq2 = 0;
-  };
+  };*/
   ngOnInit() {
       /* ----------==========     Daily Sales Chart initialization For Documentation    ==========---------- */
 
-      const dataDailySalesChart: any = {
+  /*    const dataDailySalesChart: any = {
           labels: ['M', 'T', 'W', 'T', 'F', 'S', 'S'],
           series: [
               [12, 17, 7, 17, 23, 18, 38]
@@ -88,9 +88,9 @@ export class DashboardComponent implements OnInit {
 
       this.startAnimationForLineChart(dailySalesChart);
 
-
+      */
       /* ----------==========     Completed Tasks Chart initialization    ==========---------- */
-
+      /*
       const dataCompletedTasksChart: any = {
           labels: ['12am', '3pm', '6pm', '9pm', '12pm', '3am', '6am', '9am'],
           series: [
@@ -113,9 +113,9 @@ export class DashboardComponent implements OnInit {
       this.startAnimationForLineChart(completedTasksChart);
 
 
-
+      */
       /* ----------==========     Emails Subscription Chart initialization    ==========---------- */
-
+      /*
       var dataEmailsSubscriptionChart = {
         labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
         series: [
@@ -145,6 +145,7 @@ export class DashboardComponent implements OnInit {
 
       //start animation for the Emails Subscription Chart
       this.startAnimationForBarChart(emailsSubscriptionChart);
+      */
   }
 
 }

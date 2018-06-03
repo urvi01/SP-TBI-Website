@@ -6,6 +6,10 @@ import { RouterModule } from '@angular/router';
 import {Ng2PaginationModule} from 'ng2-pagination';
 import { AppRoutingModule } from './app.routing';
 import { ComponentsModule } from './components/components.module';
+import {Ng2Webstorage} from 'ngx-webstorage';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ModalModule } from 'ngx-modialog';
+import { BootstrapModalModule, bootstrap4Mode } from 'ngx-modialog/plugins/bootstrap';
 
 import { AppComponent } from './app.component';
 
@@ -44,7 +48,8 @@ import { LoginComponent } from './login/login.component';
     ComponentsModule,
     RouterModule,
     AppRoutingModule,
-    Ng2PaginationModule
+    Ng2PaginationModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
