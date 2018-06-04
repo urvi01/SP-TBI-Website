@@ -1,0 +1,122 @@
+<div class="main-content">
+    <div class="container-fluid">
+      <nav class="row">
+          <div class="col-md-4 container-fluid">
+              <button class="btn text-center active btn-group-justified" (click)="route1()">Add Panelist</button>
+          </div>
+          <div class="col-md-4 container-fluid">
+              <button class="btn text-center active btn-group-justified" (click)="route2()">View Panelist</button>
+          </div>
+          <div class="col-md-4 container-fluid">
+              <button class="btn text-center active btn-group-justified" (click)="route3()">View Ideas</button>
+          </div>
+      </nav>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header" data-background-color="red">
+                        <h4 class="title">Add Panelist</h4>
+                        <p class="category">Only for Admin</p>
+                    </div>
+                    <div class="card-content">
+                      <form (submit)="MakeObject($event)">
+                            <div class="text-center">
+                              <div class="col-sm-6">
+                                <button type="reset" (click)="Round1active()" class="btn text-center active">Round 1</button>
+                              </div>
+                            </div>
+                            <div class="text-center">
+                              <div class="col-sm-6">
+                                <button type="reset" (click)="Round2active()" class="btn text-center active">Round 2</button>
+                              </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group form-black label-floating is-empty">
+                                        <label class="control-label">PanelistID</label>
+                                        <input type="text" class="form-control" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group form-black label-floating is-empty">
+                                        <label class="control-label">Password</label>
+                                        <input type="password" class="form-control" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group form-black label-floating is-empty">
+                                        <label class="control-label">Number Of Startups</label>
+                                        <input type="number" class="form-control" required min="0">
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <label>Category</label>
+                                <div>
+                                    <select required>
+                                        <option>Finance</option>
+                                        <option>Marketing</option>
+                                        <option>Tech</option>
+                                    </select>
+                                </div>
+                            </div>
+                          <div class="clearfix"></div>
+                          <button  type="submit" class="btn pull-right">Add</button>
+                        </form>  
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+      <div class="row">
+          <div class="col-md-12">
+              <div class="card">
+                  <div class="card-header" data-background-color="red">
+                      <h4 class="title">Delete Panelist</h4>
+                      <p class="category">Only for Admin</p>
+                  </div>
+                  <div class="card-content">
+                    <form (submit)="DeletePanelist($event)">
+                          <div class="text-center">
+                            <div class="col-sm-6">
+                              <button type="reset" (click)="Round1active()" class="btn text-center active">Round 1</button>
+                            </div>
+                          </div>
+                          <div class="text-center">
+                            <div class="col-sm-6">
+                              <button type="reset" (click)="Round2active()" class="btn text-center active">Round 2</button>
+                            </div>
+                          </div>
+                          <div class="row">
+                              <div class="col-md-12">
+                                  <div class="form-group form-black label-floating is-empty">
+                                      <label class="control-label">PanelistID</label>
+                                      <input type="text" class="form-control" required>
+                                  </div>
+                              </div>
+                          </div>
+                          <div>
+                              <label>Category</label>
+                              <div>
+                                  <select required>
+                                      <option>Finance</option>
+                                      <option>Marketing</option>
+                                      <option>Tech</option>
+                                  </select>
+                              </div>
+                          </div>
+                        <div class="clearfix"></div>
+                        <button  type="submit" class="btn pull-right">Delete</button>
+                      </form>  
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+  </div>
+    

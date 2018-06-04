@@ -1,0 +1,49 @@
+.form-control, .form-group .form-control {
+    border: 0;
+    background-image: linear-gradient(#2515d6, #2515d6), linear-gradient(#D2D2D2, #D2D2D2);
+}
+
+.card [data-background-color="red"] {
+    background: linear-gradient(60deg, #110d42, #d3d2e8);
+}
+.btn{
+    background-color:#1a3f74;
+}
+.tablink {
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    font-size: 17px;
+    width: 50%;
+    }
+    input[type='radio']:after {
+        width: 20px;
+        height: 20px;
+        border-radius: 20px;
+        top: -2px;
+        left: -1px;
+        position: relative;
+        background-color: #d1d3d1;
+        content: '';
+        display: inline-block;
+        visibility: visible;
+        border: 2px solid white;
+        margin-left: 12px;
+    }
+    
+    input[type='radio']:checked:after {
+        width: 20px;
+        height: 20px;
+        border-radius: 20px;
+        top: -2px;
+        left: -1px;
+        position: relative;
+        background-color:#1a3f74;
+        content: '';
+        display: inline-block;
+        visibility: visible;
+        border: 2px solid white;
+        margin-left: 12px;
+    }

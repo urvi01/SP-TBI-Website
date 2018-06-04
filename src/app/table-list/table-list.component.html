@@ -1,125 +1,58 @@
 <div class="main-content">
     <div class="container-fluid">
+            <nav class="row">
+                    <div class="col-md-4 container-fluid">
+                        <button class="btn text-center active btn-group-justified" (click)="route1()">Add Panelist</button>
+                    </div>
+                    <div class="col-md-4 container-fluid">
+                        <button class="btn text-center active btn-group-justified" (click)="route2()">View Panelist</button>
+                    </div>
+                    <div class="col-md-4 container-fluid">
+                        <button class="btn text-center active btn-group-justified" (click)="route3()">View Ideas</button>
+                    </div>
+                </nav>
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header" data-background-color="red">
-                        <h4 class="title">Simple Table</h4>
-                        <p class="category">Here is a subtitle for this table</p>
+                        <h4 class="title">Panelists</h4>
                     </div>
+                    <div class="category">
+                            <div class="col-md-6">
+                                <h5>Category</h5>
+                                <select (ngModelChange)="ConvergeCat($event)" [(ngModel)]="Category1" #Category="ngModel">
+                                    <option selected="selected">All</option>
+                                    <option>Finance</option>
+                                    <option>Marketing</option>
+                                    <option>Tech</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <h5>Round</h5>
+                                <select (ngModelChange)="ConvergeRound($event)" [(ngModel)]="Roundno" #Round="ngModel">
+                                    <option selected="selected">All</option>
+                                    <option>Round 1</option>
+                                    <option>Round 2</option>
+                                </select>
+                            </div>
+                        </div>
                     <div class="card-content table-responsive">
                         <table class="table">
-                            <thead class="text-danger">
+                            <thead class="txt">
                                 <tr>
-                                    <th>Name</th>
-                                    <th>Country</th>
-                                    <th>City</th>
-                                    <th>Salary</th>
+                                    <th>Id</th>
+                                    <th>Password</th>
+                                    <th>Round</th>
+                                    <th>Category</th>
+                                    <th>Startups</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody *ngFor="let val of sorts1">
                                 <tr>
-                                    <td>Dakota Rice</td>
-                                    <td>Niger</td>
-                                    <td>Oud-Turnhout</td>
-                                    <td class="text-danger">$36,738</td>
-                                </tr>
-                                <tr>
-                                    <td>Minerva Hooper</td>
-                                    <td>Curaçao</td>
-                                    <td>Sinaai-Waas</td>
-                                    <td class="text-danger">$23,789</td>
-                                </tr>
-                                <tr>
-                                    <td>Sage Rodriguez</td>
-                                    <td>Netherlands</td>
-                                    <td>Baileux</td>
-                                    <td class="text-danger">$56,142</td>
-                                </tr>
-                                <tr>
-                                    <td>Philip Chaney</td>
-                                    <td>Korea, South</td>
-                                    <td>Overland Park</td>
-                                    <td class="text-danger">$38,735</td>
-                                </tr>
-                                <tr>
-                                    <td>Doris Greene</td>
-                                    <td>Malawi</td>
-                                    <td>Feldkirchen in Kärnten</td>
-                                    <td class="text-danger">$63,542</td>
-                                </tr>
-                                <tr>
-                                    <td>Mason Porter</td>
-                                    <td>Chile</td>
-                                    <td>Gloucester</td>
-                                    <td class="text-danger">$78,615</td>
-                                </tr>
-                            </tbody>
-                        </table>
-
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-12">
-                <div class="card card-plain">
-                    <div class="card-header" data-background-color="red">
-                        <h4 class="title">Table on Plain Background</h4>
-                        <p class="category">Here is a subtitle for this table</p>
-                    </div>
-                    <div class="card-content table-responsive">
-                        <table class="table table-hover">
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Name</th>
-                                    <th>Salary</th>
-                                    <th>Country</th>
-                                    <th>City</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Dakota Rice</td>
-                                    <td>$36,738</td>
-                                    <td>Niger</td>
-                                    <td>Oud-Turnhout</td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>Minerva Hooper</td>
-                                    <td>$23,789</td>
-                                    <td>Curaçao</td>
-                                    <td>Sinaai-Waas</td>
-                                </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td>Sage Rodriguez</td>
-                                    <td>$56,142</td>
-                                    <td>Netherlands</td>
-                                    <td>Baileux</td>
-                                </tr>
-                                <tr>
-                                    <td>4</td>
-                                    <td>Philip Chaney</td>
-                                    <td>$38,735</td>
-                                    <td>Korea, South</td>
-                                    <td>Overland Park</td>
-                                </tr>
-                                <tr>
-                                    <td>5</td>
-                                    <td>Doris Greene</td>
-                                    <td>$63,542</td>
-                                    <td>Malawi</td>
-                                    <td>Feldkirchen in Kärnten</td>
-                                </tr>
-                                <tr>
-                                    <td>6</td>
-                                    <td>Mason Porter</td>
-                                    <td>$78,615</td>
-                                    <td>Chile</td>
-                                    <td>Gloucester</td>
+                                    <td *ngFor="let i of val">
+                                        <p>{{ i }}</p>
+                                    </td>
+                                    <i class="material-icons" onclick="delete($event)">delete</i>
                                 </tr>
                             </tbody>
                         </table>

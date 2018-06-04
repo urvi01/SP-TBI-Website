@@ -1,0 +1,159 @@
+<!-- <div class="main-content">
+    <div class="container-fluid">
+        <nav class="row">
+            <div class="col-md-4 container-fluid">
+                <button class="btn text-center active btn-group-justified" (click)="route1()">Add Panelist</button>
+            </div>
+            <div class="col-md-4 container-fluid">
+                <button class="btn text-center active btn-group-justified" (click)="route2()">View Panelist</button>
+            </div>
+            <div class="col-md-4 container-fluid">
+                <button class="btn text-center active btn-group-justified" (click)="route3()">View Ideas</button>
+            </div>
+        </nav>
+        <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header" data-background-color="red">
+                            <h4 class="title">Panelists</h4>
+                        </div>
+                        <div class="category">
+                                <div class="col-md-6">
+                                    <h5>Category</h5>
+                                    <select (ngModelChange)="ConvergeCat($event)" [(ngModel)]="Category1" #Category="ngModel">
+                                        <option selected="selected">All</option>
+                                        <option>Finance</option>
+                                        <option>Marketing</option>
+                                        <option>Tech</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <h5>Round</h5>
+                                    <select (ngModelChange)="ConvergeRound($event)" [(ngModel)]="Roundno" #Round="ngModel">
+                                        <option selected="selected">All</option>
+                                        <option>Round 1</option>
+                                        <option>Round 2</option>
+                                    </select>
+                                </div>
+                            </div>
+                        <div class="card-content table-responsive">
+                            <table class="table">
+                                <thead class="txt">
+                                    <tr>
+                                        <th>Id</th>
+                                        <th>Password</th>
+                                        <th>Round</th>
+                                        <th>Category</th>
+                                        <th>Startups</th>
+                                    </tr>
+                                </thead>
+                                <tbody *ngFor="let val of sorts1">
+                                    <tr>
+                                        <td *ngFor="let i of val">
+                                            <p>{{ i }}</p>
+                                        </td>
+                                        <i class="material-icons" onclick="delete($event)">delete</i>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+</div> -->
+<div class="main-content">
+    <div class="container-fluid">
+            <nav class="row">
+                    <div class="col-md-4 container-fluid">
+                        <button class="btn text-center active btn-group-justified" (click)="route1()">Add Panelist</button>
+                    </div>
+                    <div class="col-md-4 container-fluid">
+                        <button class="btn text-center active btn-group-justified" (click)="route2()">View Panelist</button>
+                    </div>
+                    <div class="col-md-4 container-fluid">
+                        <button class="btn text-center active btn-group-justified" (click)="route3()">View Ideas</button>
+                    </div>
+                </nav>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header" data-background-color="red">
+                        <h4 class="title">List of StartUps</h4>
+                        <p class="category" style="font-size:20px">
+                    </div>
+                    <div class="card-content table-responsive">
+                        <table class="table">
+                            <thead >
+                                <tr>
+                                    <th>Startup Name</th>
+                                    <th>Startup Idea</th>
+                                    <th>Description</th>
+                                    <th>Rating</th>
+                                    <th>Note</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                    <tr *ngFor="let stup of startups | paginate: {itemsPerPage: 3, currentPage:page, id: '1'}; let i = index" >
+                                            <td (click)="goToForm(stup.sid)" id=stup.sid name=stup.sid>{{stup.startupName}}</td>
+                                            <td>{{stup.startupIdea}}</td>
+                                            <td>{{stup.description}}</td>
+                                            <td ><label style="border-width:0ch" ><input style="border:0px;" [name]="stup.startupName" [id]="stup.startupName" /></label></td>
+                                            <td ><label style="border-width:0ch"></label></td>
+                                        </tr>
+                            </tbody>
+                        </table>
+                        <pagination-controls (pageChange)="page = $event" id="1"
+                            maxSize="5"
+                            directionLinks="true"
+                            autoHide="true">
+                        </pagination-controls>
+
+                    </div>
+                    <div class="form-group ">
+                            <button type="submit" class="btn btn-round" (click)="finalCheck()" style="margin-left:45%;background-color:#1a3f74;font-size:15px;" [disabled]="exceeded==true">Submit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+        <div class="row" id="form" name="form">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header" data-background-color="red">
+                            <h4 class="title">Startup Form</h4>
+                            <p class="category">Details about selected startup</p>
+                        </div>
+                        <div class="card-content">
+
+                                <div><h3 class="text-center">{{currentevalStartup.startupName}}</h3></div>
+                            <div>
+                           <h5> IDEA : </h5> <div style="margin-left:20%"> {{currentevalStartup.startupIdea}}</div>
+                            </div>
+                            <div>
+                                    <h5> DESCRIPTION : </h5>  <div style="margin-left:20%">{{currentevalStartup.description}}</div>
+                             </div>
+                             <div>
+                                    <h5> Primary Customer : </h5>  <div style="margin-left:20%">{{currentevalStartup.primaryCustomer}}</div>
+                             </div>
+                             <div>
+                                    <h5> Targetted Pain Point : </h5>  <div style="margin-left:20%">{{currentevalStartup.painPoint}}</div>
+                             </div>
+                             <div>
+                                    <h5> Operational Revenue : </h5>  <div style="margin-left:20%">{{currentevalStartup.operationalRevenue}}</div>
+                             </div>
+                           <div class="form-group">
+                            <h5>Rating :</h5> <label class="form-control"></label>
+                           </div>
+                           <div class="form-group">
+                           <h5> Note :</h5> <label class="form-control"></label>
+                            </div>
+                        </div>
+                        <div class="form-group ">
+                            <button type="button" class="btn btn-round" (click)="goToTop(currentevalStartup.startupName)" style="margin-left:45%;background-color:#1a3f74;font-size:15px;">Back to list</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+</div>

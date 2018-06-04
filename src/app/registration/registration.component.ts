@@ -199,11 +199,8 @@ export class RegistrationComponent implements OnInit {
     console.log(work);
  }
  onRevenueChange(revenue) {
-   this.operationalRevenue=revenue;
-  console.log(revenue);
+   this.operationalRevenue=revenue;  
 }
-
-
 }
   
 /*

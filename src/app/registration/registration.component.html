@@ -361,17 +361,17 @@
                                                     <label class="control-label" style="font-size:20px" >Do you have operational revenues ?</label>
                                                 </div>
                                                 <div class="col-md-2">
-                                                    <label class="control-label" style="font-size:20px" >Yes  <input type="radio" name="revenue"  [value]="Yes" (change)="onRevenueChange('yes')" ></label>
+                                                    <label class="control-label" style="font-size:20px" >Yes  <input type="radio" name="revenue"  [value]="Yes" (change)="onRevenueChange('yes')"></label>
                                                 </div>
                                         
                                                 <div class="col-md-2">
-                                                    <label class="control-label" style="font-size:20px" >No  <input type="radio" name="revenue" [value]="No" (change)="onRevenueChange('no')" ></label>
+                                                    <label class="control-label" style="font-size:20px" >No  <input type="radio" name="revenue" [value]="No"  (change)="onRevenueChange('no')"  ></label>
                                                 </div>
                                         </div> 
                                 </div>  
                                 
                                 <div class="form-group ">
-                                        <button type="submit" class="btn btn-round" style="background-color:#1a3f74;margin-left:45%;" [disabled]="startup.invalid ">Submit</button>
+                                        <button type="submit" class="btn btn-round" style="background-color:#1a3f74;margin-left:45%;" [disabled]="startup.invalid">Submit</button>
                                 </div>
                             </div>
                             </form>

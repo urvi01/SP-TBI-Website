@@ -14,11 +14,15 @@ import { UpgradeComponent } from './upgrade/upgrade.component';
 import { RegistrationComponent } from './registration/registration.component';
 import { PanelistComponent } from './panelist/panelist.component';
 import { LoginComponent } from './login/login.component';
+import { AdminPanelistComponent } from './admin-panelist/admin-panelist.component';
+import { FormsComponent } from './forms/forms.component';
 
 const routes: Routes =[
     { path: 'dashboard',      component: DashboardComponent },
     { path: 'user-profile',   component: UserProfileComponent },
     { path: 'table-list',     component: TableListComponent },
+    { path: 'addpanelist',    component:AdminPanelistComponent},
+    { path: 'forms',          component:FormsComponent},
     { path: 'typography',     component: TypographyComponent },
     { path: 'icons',          component: IconsComponent },
     { path: 'maps',           component: MapsComponent },

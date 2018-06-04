@@ -40,11 +40,11 @@ export class LoginComponent implements OnInit {
 
     if(this.userService.userType===1)
     {
-        this.router.navigate(['panelist']);
+        this.router.navigate(['addpanelist']);
     }
     else if(this.userService.userType===2)
     {
-        this.router.navigate(['panelist']);
+        this.router.navigate(['addpanelist']);
     }else if(this.userService.userType===3)
     {
         this.router.navigate(['registration']);
