@@ -150,7 +150,7 @@ export class PanelistComponent implements OnInit,OnChanges,OnDestroy {
 
   goToForm(startupID:number)    //opens the form the panelist clicks on 
   {
-    this.sstorage.store('formopened',startupID);
+    
     console.log(startupID);
     let x = document.querySelector("#form");
     if (x){
@@ -169,13 +169,8 @@ export class PanelistComponent implements OnInit,OnChanges,OnDestroy {
       if(entry.sid==startupID)
       {
           this.currentevalStartup=entry;
-          this.sstorage.store('currentevalStartup',JSON.stringify(entry));
           break;
       }
-    }
-    if(this.sstorage.retrieve('currentevalStartup'))
-    {
-      this.currentevalStartup=JSON.parse(this.sstorage.retrieve('currentevalStartup'));
     }
   }
   goToTop(formList:string)  //goes back to entire list of all forms
@@ -185,8 +180,6 @@ export class PanelistComponent implements OnInit,OnChanges,OnDestroy {
     if (x){
         x.scrollIntoView();
     }
-    this.sstorage.store('formopened','');
-    this.sstorage.clear('currentevalStartup');
   }
 
   Legalising(current)
