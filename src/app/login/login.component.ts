@@ -54,4 +54,9 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['dashboard']);
     }
   }
+//   window.onclick = function(event) {
+//     if (event.target == modal) {
+//         modal.style.display = "none";
+//     };
+//     }
 }
