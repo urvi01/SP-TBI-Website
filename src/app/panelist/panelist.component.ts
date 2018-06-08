@@ -15,6 +15,7 @@ export class PanelistComponent implements OnInit,OnChanges,OnDestroy {
   ngOnChanges() {
     console.log("onchanges");
   }
+  @Input()limit:number;
   @Input()legal1:string;
   @Input()revenue1:string;
   @Input()work1:string;
@@ -29,7 +30,7 @@ export class PanelistComponent implements OnInit,OnChanges,OnDestroy {
   legalOption:string='select all';
   revenueOption:string='select all';
   workingOption:string='select all';
-  legalOptions=['yes','no','select all'];
+  legalOptions=['YES','NO','select all'];
   flags=[false,false,false];
   temp1:string; //for legal,working,revenue options temporary 
   temp2:string;
@@ -42,14 +43,21 @@ export class PanelistComponent implements OnInit,OnChanges,OnDestroy {
   startupsBeforeReject:string;  //maintains a copy before reject
   startupsWhileReject=[];
   
-  constructor(private userService:UserService, private sstorage:SessionStorageService) {
+  constructor(private userService:UserService, public sstorage:SessionStorageService) {
     console.log("constructor");
-    if(!sstorage.retrieve('startups'))
+    if(!sstorage.retrieve('startups') && sstorage.retrieve('username'))
     {
       this.userService.getList().subscribe((data)=>{
             this.startups.push(data);
       });
       this.startupsCopy=this.startups;
+    }
+    if(!sstorage.retrieve('limit'))
+    {
+      this.userService.getLimit().subscribe((data)=>{
+        this.limit=data['limit'];
+        this.sstorage.store('limit',this.limit);
+  });
     }
    }
 
@@ -59,6 +67,10 @@ export class PanelistComponent implements OnInit,OnChanges,OnDestroy {
     if(this.sstorage.retrieve('checkbox')=='true')
     {
       this.reject1=true;
+    }
+    if(this.sstorage.retrieve('limit'))
+    {
+      this.limit=this.sstorage.retrieve('limit');
     }
     if(this.sstorage.retrieve('startups'))
     {
@@ -137,7 +149,7 @@ export class PanelistComponent implements OnInit,OnChanges,OnDestroy {
        if(entry.round==='yes')
           this.count++;
     }
-    if(this.count>2)
+    if(this.count>this.limit)
     {
       this.exceeded=true;
     }
@@ -188,8 +200,8 @@ export class PanelistComponent implements OnInit,OnChanges,OnDestroy {
     this.legalOption=current;
     switch(current)
     {
-      case 'yes':this.flags[0]=true;break;
-      case 'no':this.flags[0]=true;break;
+      case 'YES':this.flags[0]=true;break;
+      case 'NO':this.flags[0]=true;break;
       case 'select all':this.flags[0]=false;break;
     }
     this.finalFiltering(0);
@@ -201,8 +213,8 @@ export class PanelistComponent implements OnInit,OnChanges,OnDestroy {
     this.revenueOption=current;
     switch(current)
     {
-      case 'yes':this.flags[1]=true;break;
-      case 'no':this.flags[1]=true;break;
+      case 'YES':this.flags[1]=true;break;
+      case 'NO':this.flags[1]=true;break;
       case 'select all':this.flags[1]=false;break;
     }
     this.finalFiltering(1);
@@ -215,8 +227,8 @@ export class PanelistComponent implements OnInit,OnChanges,OnDestroy {
     this.workingOption=current;
     switch(current)
     {
-      case 'yes':this.flags[2]=true;break;
-      case 'no':this.flags[2]=true;break;
+      case 'YES':this.flags[2]=true;break;
+      case 'NO':this.flags[2]=true;break;
       case 'select all':this.flags[2]=false;break;
     }
     this.finalFiltering(2);
@@ -462,7 +474,18 @@ export class PanelistComponent implements OnInit,OnChanges,OnDestroy {
   ngOnDestroy()
   {
     console.log("destroyed");
-    this.sessionStoring();
+    this.sstorage.clear('startupsBeforeReject');
+    this.sstorage.clear('startupsCopy');
+    this.sstorage.clear('startups');
+    this.sstorage.clear('count');
+    this.sstorage.clear('legal');
+    this.sstorage.clear('work');
+    this.sstorage.clear('revenue');
+    this.sstorage.clear('checkbox');
+    this.sstorage.clear('limit');
+    this.sstorage.clear('username');
+    this.sstorage.clear('logged');
+    // this.sessionStoring();
   }
 
 }

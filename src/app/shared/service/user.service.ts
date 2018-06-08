@@ -7,6 +7,7 @@ import { Observable,Subject } from 'rxjs/Rx';
 import 'rxjs/Rx'; //get everything from Rx    
 import 'rxjs/add/operator/toPromise';
 import { HttpHeaders } from '@angular/common/http';
+import { SessionStorageService } from "ngx-webstorage";
 
 
 
@@ -16,16 +17,27 @@ export class UserService{
   category:string;
   userName:string;
 
-  constructor(private http:Http) { }
+  constructor(private http:Http,public sstorage:SessionStorageService) { 
+    this.userType=0;
+  }
   gettingUser(username:string,password:string)
   {
-    return this.http.get(''+username+'password='+password)          //getting UserType
+    return this.http.get('assets/data/user.json')
+    //return this.http.get(''+username+'password='+password)          //getting UserType
     .flatMap((data) =>data.json());
   }
 
   getList()   //sends list of registration forms to panelist
   {
+    console.log(this.sstorage.retrieve('username'));
     return this.http.get('assets/data/register.json')
+   // return this.http.get('panelist/'+this.userName)          //getting UserType
+    .flatMap((data) =>data.json());
+  }
+  getLimit()   //sends list of registration forms to panelist
+  {
+    console.log(this.sstorage.retrieve('username'));
+    return this.http.get('assets/data/limit.json')
    // return this.http.get('panelist/'+this.userName)          //getting UserType
     .flatMap((data) =>data.json());
   }

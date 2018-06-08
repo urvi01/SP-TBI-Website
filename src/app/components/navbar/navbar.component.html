@@ -7,7 +7,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">{{getTitle()}}</a>
+            <!-- <a class="navbar-brand" href="#">{{getTitle()}}</a> -->
             <div ng-if="Logged; then block else block2">
                 <ng-template #block>
                 <a class="navbar-brand" href="#">Add Panelist</a>
@@ -37,25 +37,32 @@
                             </div>
                             </a>
                         </li>
+                        <li *ngIf="!Logged">
+                            <a (click)="logout()">
+                                    <span style="font-size:17px" class="glyphicon glyphicon-log-out"></span>
+                            </a>
+                        </li>
             </ul>
         </div>
-        <div id="login" class="modal"> 
+        <div *ngIf="Logged" id="login" class="modal"> 
             <form class="modal-content animate">
               <div class="imgcontainer">
                 <span onclick="document.getElementById('login').style.display='none'" class="close" title="Close Modal">&times;</span>
               </div>
               <div class="container">
-                <label for="uname"><b>Username</b></label>
-                <input type="text" placeholder="Enter Username" name="uname" id="uname" required (ngModel)="uname1">
+                  
+                <span class="glyphicon glyphicon-envelope"></span>&nbsp;&nbsp;<label for="uname"><b>Username</b></label><br/>
+                <input #uname type="text" name="uname" id="uname" required />
+              
                 <br/>
-                <label for="psw"><b>Password</b></label>
-                <input type="password" placeholder="Enter Password" name="psw" id="psw" required (ngModel)="psw1" >
-                <br/>
+                <span class="glyphicon glyphicon-lock"></span>&nbsp;&nbsp;<label for="psw"><b>Password</b></label><br/>
+                <input #psw type="password" name="psw" id="psw" required />
+                
                 
               </div>
           
               <div class="container" style="position:center;width:75%">
-                <button type="submit" (click)="Login(uname1,psw1)">Login</button>
+                <button class="login" id="login" type="submit" (click)="Login($event)">Login</button>
             </div>      
                 
             </form>

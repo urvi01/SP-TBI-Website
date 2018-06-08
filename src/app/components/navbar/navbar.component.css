@@ -10,17 +10,18 @@
     background-color:#1a3f74;
 }
 input[type=text], input[type=password] {
-    width: 75%;
+    width: 26%;
     padding: 12px 20px;
     margin: 8px 0;
     display: inline-block;
     border: 1px solid #ccc;
-    box-sizing: border-box;
+    box-sizing: border-box;    
 }
 
 /*Set a style for all buttons */
  button {
-    background-color: #4CAF50;
+    background: linear-gradient(60deg,#110d42, #d3d2e8);
+    /* background-color: #4CAF50; */
     color: white;
     padding: 14px 20px;
     margin: 8px 0;
@@ -29,7 +30,11 @@ input[type=text], input[type=password] {
     width: 100%;
 }
 
-button:hover {
+input:hover{
+    -webkit-box-shadow: 0 5px 11px 0 rgba(85, 182, 255, 0.28), 0 4px 15px 0 rgba(36, 133, 255, 0.15);
+    box-shadow: 0 5px 11px 0 rgba(85, 182, 255, 0.28), 0 4px 15px 0 rgba(36, 133, 255, 0.15);
+}
+ button:hover {
     opacity: 0.8;
 }
 
@@ -81,7 +86,7 @@ span.psw {
     background-color: #fefefe;
     margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
     border: 1px solid #888;
-    width: 80%; /* Could be more or less, depending on screen size */
+    width: 25%; /* Could be more or less, depending on screen size */
 }
 
 /* The Close Button (x) */

@@ -7,11 +7,12 @@ import {Founder} from '../shared/models/founder.model';
 import {UserService} from '../shared/service/user.service';
 import { FormsModule,FormBuilder, Validators,FormGroup,FormControl, NgForm} from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
+import { SessionStorageService } from 'ngx-webstorage';
 @Component({
   selector: 'app-registration',
   templateUrl: './registration.component.html',
   styleUrls: ['./registration.component.css'],
-  providers:[UserService,FormBuilder,FormsModule]
+  providers:[UserService,FormBuilder,FormsModule,SessionStorageService]
 })
 export class RegistrationComponent implements OnInit {
   F1:{founderName:string,founderEmail:string,founderContact:number}={founderName:"",founderEmail:"",founderContact:0};
@@ -33,7 +34,7 @@ export class RegistrationComponent implements OnInit {
   f1:boolean=true;f2:boolean=false;f3:boolean=false;f4:boolean=false;f5:boolean=false;f6:boolean=false;
   
 
-  constructor(private  userService: UserService,private router:Router, private fb : FormBuilder) {
+  constructor(private  userService: UserService,private router:Router, private fb : FormBuilder,public sstorage:SessionStorageService) {
     
    }
 
