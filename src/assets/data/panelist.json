@@ -1,0 +1,23 @@
+[
+    {
+        "userName":"abc",
+        "password":"123",
+        "selectionLimit":2,
+        "round":1,
+        "category":"CONSUMER"
+    },
+    {
+        "userName":"abc",
+        "password":"123",
+        "selectionLimit":2,
+        "round":1,
+        "category":"E-COMMERCE"
+    },
+    {
+        "userName":"abc",
+        "password":"123",
+        "selectionLimit":2,
+        "round":1,
+        "category":"TECHNOLOGY"
+    }
+]

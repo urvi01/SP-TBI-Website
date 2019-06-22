@@ -1,36 +1,96 @@
 <div class="main-content">
     <div class="container-fluid">
-            <nav class="row">
-                    <div class="col-md-4 container-fluid">
-                        <button class="btn text-center active btn-group-justified" (click)="route1()">Add Panelist</button>
-                    </div>
-                    <div class="col-md-4 container-fluid">
-                        <button class="btn text-center active btn-group-justified" (click)="route2()">View Panelist</button>
-                    </div>
-                    <div class="col-md-4 container-fluid">
-                        <button class="btn text-center active btn-group-justified" (click)="route3()">View Ideas</button>
-                    </div>
-                </nav>
+    
+    <div id="modal1" class="modaladded"> 
+            <div class="modal-content animate">
+              <div style="padding-left:3%;">  
+                    <h2 style="font-size:20px;font-weight:700;margin-top:10px;"><span class="glyphicon glyphicon-plus-sign" style="color:green;font-size:30px;top:8px;"></span> Added Panelist {{uname}}</h2>
+              </div>
+            </div>
+    </div>
+    <div id="modal2" class="modaldeleted"> 
+            <div class="modal-content animate">
+              <div style="padding-left:3%;">  
+                    <h2 style="font-size:20px;font-weight:700;margin-top:10px;"><span class="glyphicon glyphicon-trash" style="color:red;font-size:30px;top:8px;margin-left:0px;"></span> Deleted Panelist </h2>
+              </div>
+            </div>
+    </div>
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header" data-background-color="red">
                         <h4 class="title">Panelists</h4>
                     </div>
+                    <div class="card-content table-responsive">
+                        <form (submit)="MakeObject($event)">
+                        <div class="row">
+                            <div class="col-md-2">
+                                    <div class="form-group form-black label-floating is-empty">
+                                            <label class="control-label">Username</label>
+                                            <input type="text" name="uname" class="form-control" required [(ngModel)]=uname>
+                                        </div>
+                            </div>
+                            <div class="col-md-2">
+                                    <div class="form-group form-black label-floating is-empty">
+                                            <label class="control-label">Password</label>
+                                            <input type="password" class="form-control" required>
+                                        </div>   
+                            </div>
+                            <div class="col-md-2">
+                                    <label>Round</label>
+                                    <div>
+                                        <select required style="width:150px;padding-left:auto;padding-right:auto;text-align:center">
+                                            <option >1</option>
+                                            <option >2</option>
+                                        </select>
+                                    </div>  
+                            </div>
+                            <div class="col-md-2">
+                                    <label>Category</label>
+                                    <div>
+                                        <select required style="width:150px;padding-left:5px;padding-right:5px;text-align:center">
+                                            <option>CONSUMER</option>
+                                            <option>E-COMMERCE</option>
+                                            <option>EDUCATION</option>
+                                            <option>HEALTHCARE</option>
+                                            <option>LOGISTICS</option>
+                                            <option>MANUFACTURING</option>
+                                            <option>TECHNOLOGY</option>
+                                            <option>OTHERS</option>
+                                        </select>
+                                    </div>    
+                            </div>
+                            <div class="col-md-2">
+                                    <div class="form-group form-black label-floating is-empty">
+                                            <label class="control-label">Selection-Limit</label>
+                                            <input type="number" class="form-control" required min="0">
+                                        </div>   
+                            </div>
+                            <div class="col-md-2">
+                                    <button type="submit" class="btn pull-right">Add</button>           
+                            </div>
+                        </div>
+                        </form>
+                    </div>
+                    <hr/>
                     <div class="category">
                             <div class="col-md-6">
                                 <h5>Category</h5>
                                 <select (ngModelChange)="ConvergeCat($event)" [(ngModel)]="Category1" #Category="ngModel">
-                                    <option selected="selected">All</option>
-                                    <option>Finance</option>
-                                    <option>Marketing</option>
-                                    <option>Tech</option>
+                                    <option selected >All</option>
+                                    <option>CONSUMER</option>
+                                    <option>E-COMMERCE</option>
+                                    <option>EDUCATION</option>
+                                    <option>HEALTHCARE</option>
+                                    <option>LOGISTICS</option>
+                                    <option>MANUFACTURING</option>
+                                    <option>TECHNOLOGY</option>
                                 </select>
                             </div>
                             <div class="col-md-6">
                                 <h5>Round</h5>
                                 <select (ngModelChange)="ConvergeRound($event)" [(ngModel)]="Roundno" #Round="ngModel">
-                                    <option selected="selected">All</option>
+                                    <option selected>All</option>
                                     <option>Round 1</option>
                                     <option>Round 2</option>
                                 </select>
@@ -38,21 +98,25 @@
                         </div>
                     <div class="card-content table-responsive">
                         <table class="table">
-                            <thead class="txt">
+                            <thead >
                                 <tr>
-                                    <th>Id</th>
-                                    <th>Password</th>
-                                    <th>Round</th>
-                                    <th>Category</th>
-                                    <th>Startups</th>
+                                    
+                                    <th class="txt">Username</th>
+                                    <th class="txt">Password</th>
+                                    <th class="txt">Round</th>
+                                    <th class="txt">Category</th>
+                                    <th class="txt">Limit</th>
+                                    <th></th>
                                 </tr>
                             </thead>
-                            <tbody *ngFor="let val of sorts1">
-                                <tr>
-                                    <td *ngFor="let i of val">
-                                        <p>{{ i }}</p>
-                                    </td>
-                                    <i class="material-icons" onclick="delete($event)">delete</i>
+                            <tbody class="list">
+                                <tr *ngFor="let s of sorts1 ; let i = index" >
+                                    <td ><p>{{s.userName}}</p></td>
+                                    <td ><p>{{s.password}}</p></td>
+                                    <td ><p>{{s.round}}</p></td>
+                                    <td ><p>{{s.category}}</p></td>
+                                    <td ><p>{{s.selectionLimit}}</p></td>
+                                    <td ><button type="button" rel="tooltip" title="Remove" class="btn btn-simple" style="color:black;"><span class="glyphicon glyphicon-trash" style="font-size:15px" (click)="delete(s.userName)"></span></button></td>
                                 </tr>
                             </tbody>
                         </table>

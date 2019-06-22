@@ -1,18 +1,23 @@
-<div class="main-content">
-        <div class="container-fluid">
-            <div class="row">
-                    <div class="card">
+<div class="main-content" style="margin-top:80px;">
+        <!-- <div class="container-fluid"> -->
+<!--            
+                     <div class="card" style="width:75%;margin-left:12.5%;">
                         <div class="card-header" data-background-color="red">
                             <h4 class="title"><strong>Edit Profile</strong></h4>
                             <p class="category" style="font-size:17px">Complete your profile</p>
                         </div>
-                        <div class="card-content">
-                            <form #startup="ngForm" (ngSubmit)="login(startup)">
-                            <div [hidden]="startup.submitted">
+                    </div> -->
+                        <!--<div class="card-content"> -->
+                       
+                        <div class="willscroll">
+                            <h6 class="heading hidden-xs">APPLICATION FORM</h6>
+                            <h6 class="heading visible-xs" style="font-size:2em;">APPLICATION FORM</h6>
+                            <form *ngIf="reg_open" #startup="ngForm" (ngSubmit)="login(startup)">
+                            <div >
 
                                 <div class="form-group label-floating is-empty">
-                                        <label class="control-label" style="font-size:20px" for="idea">Startup Name</label>
-                                        <input class="form-control" name="name" id="name" required minlength="2" maxlength="20" [(ngModel)]="name0" #name="ngModel"/>
+                                        <label class="control-label" style="font-size:20px;" for="idea">Team/Company Name</label><br /><br class="visible-xs"/>
+                                        <input class="form-control" name="name" id="name" required minlength="2" maxlength="100" (ngModelChange)="namechange($event)" [(ngModel)]="namename" #name="ngModel"/>
                                         <div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert alert-danger">
                                             <div *ngIf="name.errors.required">          
                                                 Startup name is required.
@@ -21,33 +26,47 @@
                                                 Startup name must be at least 2 characters long.
                                             </div>
                                             <div *ngIf="name.errors.maxlength">
-                                                Startup name cannot be more than 20 characters long.
+                                                Startup name cannot be more than 100 characters long.
                                             </div>
                                         </div>
                                 </div>  
 
                                  <div class="form-group label-floating is-empty">
-                                    <label class="control-label" style="font-size:20px" for="idea">Startup Idea</label>
-                                    <input class="form-control" name="idea" id="idea" required minlength="2" maxlength="20" [(ngModel)]="name1" #idea="ngModel"/>
+                                    <label class="control-label" style="font-size:20px" for="idea">Tell us about your idea</label><br /><br class="visible-xs"/>
+                                    <input class="form-control" name="idea" id="idea" required minlength="2" maxlength="150"  [(ngModel)]="name1" #idea="ngModel"/>
                                     <div *ngIf="idea.invalid && (idea.dirty || idea.touched)" class="alert alert-danger">
 
                                         <div *ngIf="idea.errors.required">
                                             Idea is required.
                                         </div>
                                         <div *ngIf="idea.errors.minlength">
-                                            Idea must be at least 2 characters long.
+                                            Idea must be at least 20 characters long.
                                         </div>
                                         <div *ngIf="idea.errors.maxlength">
-                                            Idea cannot be more than 20 characters long.
+                                            Idea cannot be more than 150 characters long.
                                         </div>
 
                                     </div>
-                                </div>  
-
+                                </div>
+                                <br/>  
                                 <div class="form-group">
                                         <div class="row">
-                                                <div class="col-md-6">
-                                                    <label class="control-label" style="font-size:20px" >Are you registered legal entity ?</label>
+                                                <div class="col-md-3">
+                                                    <label class="control-label" style="font-size:20px" >Category</label>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <br/>
+                                                    <select (ngModelChange)="onSelectCategory($event)" name="category" id="category" style="width:max-content;font-size:20px;padding: 1% 5% 1% 5%;border-radius:10px;text-align:center" required [(ngModel)]="category1" #category="ngModel">
+                                                        <option  [value]="i" *ngFor="let i of categories" style="font-size:20px;">{{i}}</option>
+                                                    </select>
+                                                </div>
+                                        </div>
+                                    </div>
+                                    <br/>
+                                <div class="form-group">
+                                        <div class="row">
+                                                <div class="col-md-7">
+                                                    <label class="control-label" style="font-size:20px" >Have you registered your company ?</label>
                                                 </div>
                                                 <div class="col-md-2">
                                                     <label class="control-label" style="font-size:20px" >Yes  <input type="radio" name="legal"  [value]="Yes" (change)="onLegalChange('yes')" ></label>
@@ -56,56 +75,78 @@
                                                     <label class="control-label" style="font-size:20px" >No   <input type="radio" name="legal" [value]="No" (change)="onLegalChange('no')" ></label>
                                                 </div>
                                         </div>
-                                    </div> 
+                                    </div>
+                                <div class="form-group">
+                                        <div class="row">
+                                                <div class="col-md-7">
+                                                        <label class="control-label" style="font-size:20px" >Do you have a prototype ?</label>
+                                                </div>
+                                                <div class="col-md-2">
+                                                        <label class="control-label" style="font-size:20px" >Yes  <input type="radio" name="working"   [value]="Yes" (change)="onWorkingChange('yes')" ></label>
+                                                </div>
+                                                <div class="col-md-2">
+                                                        <label class="control-label" style="font-size:20px" >No   <input type="radio" name="working"  [value]="No" (change)="onWorkingChange('no')"></label>
+                                                </div>
+                                        </div>
+                                </div>
+    
+    
+                                    <div class="form-group">
+                                            <div class="row">
+                                                    <div class="col-md-7">
+                                                        <label class="control-label" style="font-size:20px" >Do you have operational revenues ?</label>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <label class="control-label" style="font-size:20px" >Yes  <input type="radio" name="revenue"  [value]="Yes" (change)="onRevenueChange('yes')"></label>
+                                                    </div>
+                                            
+                                                    <div class="col-md-2">
+                                                        <label class="control-label" style="font-size:20px" >No  <input type="radio" name="revenue" [value]="No"  (change)="onRevenueChange('no')"  ></label>
+                                                    </div>
+                                            </div> 
+                                    </div>  
 
                                 <br/>
-                                <div class="form-group">
-                                    <div class="row">
-                                            <div class="col-md-3">
-                                                <label class="control-label" style="font-size:20px" >Category</label>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <br/>
-                                                <select  [ngModel]="selectedCategory" (ngModelChange)="onSelectCategory($event)" name="category" id="category" style="width:40%;font-size:20px;padding-left:20px;border-width:2px;color: #AAAAAA" required [(ngModel)]="category1" #category="ngModel">
-                                                    <option  [value]="i" *ngFor="let i of categories" style="font-size:20px;color: #AAAAAA">{{i}}</option>
-                                                </select>
-                                            </div>
-                                    </div>
-                                </div>
-                                   <br/>
-        
+                                
+                                   <br/><br/>
+                                   <div class="row">
+                                       <div class="col-md-5 col-sm-12" ><hr style="text-align:center"></div>
+                                       <div class="col-md-2 col-sm-12" style="text-align:center;color:white;margin-top:1%;font-size:15px;"><i>Founder Details</i></div>
+                                       <div class="col-md-5 col-sm-12"><hr  style="text-align:center"></div>
+                                   </div>
+                                <br/>
 
                                 <div class="form-group">
                                 <div class="row">
-                                <div class="col-md-3">
+                                <div class="col-md-5">
                                     <label class="control-label" style="font-size:20px" >Number of Founders</label>
                                 </div>
                                 <div class="col-md-4">
                                         <br/>
-                                        <select  [ngModel]="selectedFounder" (ngModelChange)="onChange($event)" name="sel2" style="width:20%;font-size:20px;padding-left:25px;border-width:2px;color: #AAAAAA">
-                                            <option  [value]="i" *ngFor="let i of maximumFounders" style="font-size:20px;color: #AAAAAA">{{i}}</option>
+                                        <select  [ngModel]="selectedFounder" (ngModelChange)="onChange($event)" name="sel2" style="width:max-content;font-size:20px;padding-left:12px;padding-right:12px;">
+                                            <option  [value]="i" *ngFor="let i of maximumFounders" style="font-size:20px;">{{i}}</option>
                                         </select>
                                     </div>        
-                                </div>
+                                </div><br/>
                                         <div *ngIf="f1">
                                              <label class="control-label " style="font-size:20px" >Founder 1</label>
                                             <div class="row">
                                                 <div class="col-md-4">
                                                     <div class="form-group label-floating is-empty">
                                                         <label class="control-label">Name</label>
-                                                        <input type="text"name="founder1name" id="founder1name"  class="form-control" required [(ngModel)]="f1name" #founder1name="ngModel"/>
+                                                        <input type="text"name="founder1name" id="founder1name"  class="form-control" required maxlength="50" [(ngModel)]="f1name" #founder1name="ngModel"/>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
                                                      <div class="form-group label-floating is-empty">
                                                         <label class="control-label">Contact Number</label>
-                                                        <input type="text" name="founder1contact" id="founder1contact"   class="form-control" required [(ngModel)]="f1contact" #founder1contact="ngModel"/>
+                                                        <input type="number" name="founder1contact" id="founder1contact"   class="form-control" required minlength="10" maxlength="11"  [(ngModel)]="f1contact" #founder1contact="ngModel"/>
                                                     </div>
                                                     </div>
                                                 <div class="col-md-4">
                                                     <div class="form-group label-floating is-empty">
                                                         <label class="control-label">Email</label>
-                                                        <input type="text" name="founder1email" id="founder1email"  class="form-control"  required [(ngModel)]="f1email" #founder1email="ngModel"/>
+                                                        <input type="email" name="founder1email" id="founder1email"  class="form-control"  required [(ngModel)]="f1email" #founder1email="ngModel"/>
                                                     </div>
                                                 </div>
                                             </div>
@@ -116,19 +157,19 @@
                                                         <div class="col-md-4">
                                                             <div class="form-group label-floating is-empty">
                                                                 <label class="control-label">Name</label>
-                                                                <input type="text" name="founder2name" id="founder2name" required class="form-control" [(ngModel)]="f2name" #founder2name="ngModel"/>
+                                                                <input type="text" name="founder2name" id="founder2name" required maxlength="50" class="form-control" [(ngModel)]="f2name" #founder2name="ngModel"/>
                                                             </div>
                                                         </div>
                                                         <div class="col-md-4">
                                                              <div class="form-group label-floating is-empty">
                                                                 <label class="control-label">Contact Number</label>
-                                                                <input type="text" name="founder2contact" id="founder2contact" required class="form-control" [(ngModel)]="f2contact" #founder2contact="ngModel"/>
+                                                                <input type="number" name="founder2contact" id="founder2contact" required minlength="10" maxlength="11" class="form-control" [(ngModel)]="f2contact" #founder2contact="ngModel"/>
                                                             </div>
                                                             </div>
                                                         <div class="col-md-4">
                                                             <div class="form-group label-floating is-empty">
                                                                 <label class="control-label">Email</label>
-                                                                <input type="text" name="founder2email" id="founder2email" required class="form-control" [(ngModel)]="f2email" #founder2email="ngModel"/>
+                                                                <input type="email" name="founder2email" id="founder2email" required class="form-control" [(ngModel)]="f2email" #founder2email="ngModel"/>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -139,19 +180,19 @@
                                                         <div class="col-md-4">
                                                             <div class="form-group label-floating is-empty">
                                                                 <label class="control-label">Name</label>
-                                                                <input type="text" name="founder3name" id="founder3name" required class="form-control" [(ngModel)]="f3name" #founder3name="ngModel"/>
+                                                                <input type="text" name="founder3name" id="founder3name" required maxlength="50" class="form-control" [(ngModel)]="f3name" #founder3name="ngModel"/>
                                                             </div>
                                                         </div>
                                                         <div class="col-md-4">
                                                              <div class="form-group label-floating is-empty">
                                                                 <label class="control-label">Contact Number</label>
-                                                                <input type="text" name="founder3contact" id="founder3contact" required class="form-control" [(ngModel)]="f3contact" #founder3contact="ngModel"/>
+                                                                <input type="number" name="founder3contact" id="founder3contact" required minlength="10" maxlength="11" class="form-control" [(ngModel)]="f3contact" #founder3contact="ngModel"/>
                                                             </div>
                                                             </div>
                                                         <div class="col-md-4">
                                                             <div class="form-group label-floating is-empty">
                                                                 <label class="control-label">Email</label>
-                                                                <input type="text" name="founder3email" id="founder3email" required class="form-control" [(ngModel)]="f3email" #founder3email="ngModel"/>
+                                                                <input type="email" name="founder3email" id="founder3email" required class="form-control" [(ngModel)]="f3email" #founder3email="ngModel"/>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -162,19 +203,19 @@
                                                         <div class="col-md-4">
                                                             <div class="form-group label-floating is-empty">
                                                                 <label class="control-label">Name</label>
-                                                                <input type="text" name="founder4name" id="founder4name" required class="form-control" [(ngModel)]="f4name" #founder4name="ngModel"/>
+                                                                <input type="text" name="founder4name" id="founder4name" required maxlength="50" class="form-control" [(ngModel)]="f4name" #founder4name="ngModel"/>
                                                             </div>
                                                         </div>
                                                         <div class="col-md-4">
                                                              <div class="form-group label-floating is-empty">
                                                                 <label class="control-label">Contact Number</label>
-                                                                <input type="text" name="founder4contact" id="founder4contact" required class="form-control" [(ngModel)]="f4contact" #founder4contact="ngModel"/>
+                                                                <input type="number" name="founder4contact" id="founder4contact" required minlength="10" maxlength="11" class="form-control" [(ngModel)]="f4contact" #founder4contact="ngModel"/>
                                                             </div>
                                                             </div>
                                                         <div class="col-md-4">
                                                             <div class="form-group label-floating is-empty">
                                                                 <label class="control-label">Email</label>
-                                                                <input type="text" name="founder4email" id="founder4email" required class="form-control" [(ngModel)]="f4email" #founder4email="ngModel"/>
+                                                                <input type="email" name="founder4email" id="founder4email" required class="form-control" [(ngModel)]="f4email" #founder4email="ngModel"/>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -185,19 +226,19 @@
                                                         <div class="col-md-4">
                                                             <div class="form-group label-floating is-empty">
                                                                 <label class="control-label">Name</label>
-                                                                <input type="text" name="founder5name" id="founder5name" required class="form-control" [(ngModel)]="f5name" #founder5name="ngModel"/>
+                                                                <input type="text" name="founder5name" id="founder5name" required maxlength="50" class="form-control" [(ngModel)]="f5name" #founder5name="ngModel"/>
                                                             </div>
                                                         </div>
                                                         <div class="col-md-4">
                                                              <div class="form-group label-floating is-empty">
                                                                 <label class="control-label">Contact Number</label>
-                                                                <input type="text" name="founder5contact" id="founder5contact" required class="form-control" [(ngModel)]="f5contact" #founder5contact="ngModel"/>
+                                                                <input type="number" name="founder5contact" id="founder5contact" required minlength="10" maxlength="11" class="form-control" [(ngModel)]="f5contact" #founder5contact="ngModel"/>
                                                             </div>
                                                             </div>
                                                         <div class="col-md-4">
                                                             <div class="form-group label-floating is-empty">
                                                                 <label class="control-label">Email</label>
-                                                                <input type="text" name="founder5email" id="founder5email" required class="form-control" [(ngModel)]="f5email" #founder5email="ngModel"/>
+                                                                <input type="email" name="founder5email" id="founder5email" required class="form-control" [(ngModel)]="f5email" #founder5email="ngModel"/>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -208,131 +249,137 @@
                                                         <div class="col-md-4">
                                                             <div class="form-group label-floating is-empty">
                                                                 <label class="control-label">Name</label>
-                                                                <input type="text" name="founder6name" id="founder6name" required class="form-control" [(ngModel)]="f6name" #founder6name="ngModel"/>
+                                                                <input type="text" name="founder6name" id="founder6name" required maxlength="50" class="form-control" [(ngModel)]="f6name" #founder6name="ngModel"/>
                                                             </div>
                                                         </div>
                                                         <div class="col-md-4">
                                                              <div class="form-group label-floating is-empty">
                                                                 <label class="control-label">Contact Number</label>
-                                                                <input type="text" name="founder6contact" id="founder6contact" required class="form-control" [(ngModel)]="f6contact" #founder6contact="ngModel"/>
+                                                                <input type="number" name="founder6contact" id="founder6contact" required minlength="10" maxlength="11" class="form-control" [(ngModel)]="f6contact" #founder6contact="ngModel"/>
                                                             </div>
                                                             </div>
                                                         <div class="col-md-4">
                                                             <div class="form-group label-floating is-empty">
                                                                 <label class="control-label">Email</label>
-                                                                <input type="text" name="founder6email" id="founder6email" required class="form-control" [(ngModel)]="f6email" #founder6email="ngModel" />
+                                                                <input type="email" name="founder6email" id="founder6email" required class="form-control" [(ngModel)]="f6email" #founder6email="ngModel" />
                                                             </div>
                                                         </div>
                                                     </div>
                                         </div>      
                                 </div>
-                                <br/>
+                                <br/><br/>
+                                <div class="row">
+                                        <div class="col-md-5" ><hr style="text-align:center"></div>
+                                        <div class="col-md-2" style="text-align:center;color:white;margin-top:1%;font-size:15px;"><i>Idea Details</i></div>
+                                        <div class="col-md-5"><hr  style="text-align:center"></div>
+                                </div>
+                                <br/><br/>
 
                                 <div class="form-group label-floating is-empty">
-                                        <label class="control-label" style="font-size:20px">What will your Company do ?</label>
-                                        <textarea class="form-control" rows="3" name="company" id="company" required minlength="3" maxlength="600" [(ngModel)]="name2" #company="ngModel"></textarea>
+                                        <label class="control-label" style="font-size:20px">What will your Company do ?</label><br /><br class="visible-xs"/><br class="visible-xs"/>
+                                        <textarea class="form-control" rows="3" name="company" id="company" required minlength="50" maxlength="250" [(ngModel)]="name2" #company="ngModel"></textarea>
                                         <div *ngIf="company.invalid && (company.dirty ||company.touched)" class="alert alert-danger">
     
                                             <div *ngIf="company.errors.required">
                                                 Field is required.
                                             </div>
                                             <div *ngIf="company.errors.minlength">
-                                                Field must be at least 3 characters long.
+                                                Field must be at least 50 characters long.
                                             </div>
                                             <div *ngIf="company.errors.maxlength">
-                                                Field cannot be more than 600 characters long.
+                                                Field cannot be more than 250 characters long.
                                             </div>
     
                                         </div> 
                                  </div>  
 
                                 <div class="form-group label-floating is-empty">
-                                        <label class="control-label" style="font-size:20px">What is the customer Pain point you are trying to solve ?</label>
+                                        <label class="control-label" style="font-size:20px">What is the customer Pain point you are trying to solve ?</label><br /><br class="visible-xs"/><br class="visible-xs"/>
                                         
                                         
-                                        <textarea class="form-control" rows="3" name="pain" id="pain" required minlength="3" maxlength="600" [(ngModel)]="name3" #pain="ngModel"></textarea>
+                                        <textarea class="form-control" rows="3" name="pain" id="pain" required minlength="50" maxlength="250" [(ngModel)]="name3" #pain="ngModel"></textarea>
                                         <div *ngIf="pain.invalid && (pain.dirty ||pain.touched)" class="alert alert-danger">
     
                                             <div *ngIf="pain.errors.required">
                                                 Pain Point Field is required.
                                             </div>
                                             <div *ngIf="pain.errors.minlength">
-                                                Pain Point Field must be at least 3 characters long.
+                                                Pain Point Field must be at least 50 characters long.
                                             </div>
                                             <div *ngIf="pain.errors.maxlength">
-                                                Pain Point Field cannot be more than 600 characters long.
+                                                Pain Point Field cannot be more than 250 characters long.
                                             </div>
     
                                         </div> 
                                 </div> 
 
                                 <div class="form-group label-floating is-empty">
-                                        <label class="control-label" style="font-size:20px">Who is your primary customer ?</label>
-                                        <textarea class="form-control" rows="3" name="customer" id="customer" required minlength="3" maxlength="600" [(ngModel)]="name4" #customer="ngModel"></textarea>
+                                        <label class="control-label" style="font-size:20px">Who is your primary customer ?</label><br /><br class="visible-xs"/><br class="visible-xs"/>
+                                        <textarea class="form-control" rows="3" name="customer" id="customer" required minlength="50" maxlength="250" [(ngModel)]="name4" #customer="ngModel"></textarea>
                                         <div *ngIf="customer.invalid && (customer.dirty ||customer.touched)" class="alert alert-danger">
     
                                             <div *ngIf="customer.errors.required">
                                                 Field is required.
                                             </div>
                                             <div *ngIf="customer.errors.minlength">
-                                                Primary Customer Field must be at least 3 characters long.
+                                                Primary Customer Field must be at least 50 characters long.
                                             </div>
                                             <div *ngIf="customer.errors.maxlength">
-                                                Primary Customer Field cannot be more than 600 characters long.
+                                                Primary Customer Field cannot be more than 250 characters long.
                                             </div>
     
                                         </div> 
                                 </div>   
 
                                 <div class="form-group label-floating is-empty">
-                                        <label class="control-label" style="font-size:20px">Write a few lines about your competitors</label>
-                                        <textarea class="form-control" rows="3" name="competitors" id="competitors" required minlength="3" maxlength="600" [(ngModel)]="name5" #competitors="ngModel"></textarea>
+                                        <label class="control-label" style="font-size:20px">Write a few lines about your competitors</label><br /><br class="visible-xs"/><br class="visible-xs"/>
+                                        <textarea class="form-control" rows="3" name="competitors" id="competitors" required minlength="50" maxlength="250" [(ngModel)]="name5" #competitors="ngModel"></textarea>
                                         <div *ngIf="competitors.invalid && (competitors.dirty ||competitors.touched)" class="alert alert-danger">
     
                                             <div *ngIf="competitors.errors.required">
                                                     Competitors Field is required.
                                             </div>
                                             <div *ngIf="competitors.errors.minlength">
-                                                    Competitors Field must be at least 3 characters long.
+                                                    Competitors Field must be at least 50 characters long.
                                             </div>
                                             <div *ngIf="competitors.errors.maxlength">
-                                                    Competitors Field cannot be more than 600 characters long.
+                                                    Competitors Field cannot be more than 250 characters long.
                                             </div>
     
                                         </div>  
                                 </div>
 
                                 <div class="form-group label-floating is-empty">
-                                        <label class="control-label" style="font-size:20px">How are you different from your competition?</label>
-                                        <textarea class="form-control" rows="3" name="difference" id="difference" required minlength="3" maxlength="600" [(ngModel)]="name6" #difference="ngModel"></textarea>
+                                        <label class="control-label" style="font-size:20px">How are you different from your competition?</label><br /><br class="visible-xs"/><br class="visible-xs"/>
+                                        <textarea class="form-control" rows="3" name="difference" id="difference" required minlength="50" maxlength="250" [(ngModel)]="name6" #difference="ngModel"></textarea>
                                         <div *ngIf="difference.invalid && (difference.dirty ||difference.touched)" class="alert alert-danger">
     
                                             <div *ngIf="difference.errors.required">
                                                     Difference Field is required.
                                             </div>
                                             <div *ngIf="difference.errors.minlength">
-                                                    Difference Field must be at least 3 characters long.
+                                                    Difference Field must be at least 50 characters long.
                                             </div>
                                             <div *ngIf="difference.errors.maxlength">
-                                                    Difference Field cannot be more than 600 characters long.
+                                                    Difference Field cannot be more than 250 characters long.
                                             </div>
     
                                         </div>  
                                 </div> 
 
                                 <div class="form-group label-floating is-empty">
-                                        <label class="control-label" style="font-size:20px">Write details about monetization model of your idea . How will your Company make money ?</label><br/>
-                                        <textarea class="form-control" rows="3" name="monetization" id="monetization" required minlength="3" maxlength="600" [(ngModel)]="name7" #monetization="ngModel"></textarea>
+                                        <label class="control-label" style="font-size:20px">Write details about monetization model of your idea . How will your Company make money ?</label><br /><br class="visible-xs"/><br class="visible-xs"/>
+                                        <textarea class="form-control" rows="3" name="monetization" id="monetization" required minlength="50" maxlength="250" [(ngModel)]="name7" #monetization="ngModel"></textarea>
                                         <div *ngIf="monetization.invalid && (monetization.dirty ||monetization.touched)" class="alert alert-danger">
     
                                             <div *ngIf="monetization.errors.required">
                                                     Monetization Field is required.
                                             </div>
                                             <div *ngIf="monetization.errors.minlength">
-                                                    Monetization Field must be at least 3 characters long.
+                                                    Monetization Field must be at least 50 characters long.
                                             </div>
                                             <div *ngIf="monetization.errors.maxlength">
-                                                    Monetization Field cannot be more than 600 characters long.
+                                                    Monetization Field cannot be more than 250 characters long.
                                             </div>
     
                                         </div>  
@@ -340,76 +387,32 @@
 
                                 
 
-                                <div class="form-group">
-                                        <div class="row">
-                                                <div class="col-md-6">
-                                                    <label class="control-label" style="font-size:20px" >Have you already started working on your idea ?</label>
-                                                </div>
-                                                <div class="col-md-2">
-                                                    <label class="control-label" style="font-size:20px" >Yes  <input type="radio" name="working"   [value]="Yes" (change)="onWorkingChange('yes')" ></label>
-                                                </div>
-                                                <div class="col-md-2">
-                                                    <label class="control-label" style="font-size:20px" >No   <input type="radio" name="working"  [value]="No" (change)="onWorkingChange('no')"></label>
-                                                </div>
-                                        </div>
-                                </div>
-
-
-                                <div class="form-group">
-                                        <div class="row">
-                                                <div class="col-md-6">
-                                                    <label class="control-label" style="font-size:20px" >Do you have operational revenues ?</label>
-                                                </div>
-                                                <div class="col-md-2">
-                                                    <label class="control-label" style="font-size:20px" >Yes  <input type="radio" name="revenue"  [value]="Yes" (change)="onRevenueChange('yes')"></label>
-                                                </div>
-                                        
-                                                <div class="col-md-2">
-                                                    <label class="control-label" style="font-size:20px" >No  <input type="radio" name="revenue" [value]="No"  (change)="onRevenueChange('no')"  ></label>
-                                                </div>
-                                        </div> 
-                                </div>  
+                                 
                                 
                                 <div class="form-group ">
-                                        <button type="submit" class="btn btn-round" style="background-color:#1a3f74;margin-left:45%;" [disabled]="startup.invalid">Submit</button>
+                                        <button type="submit" class="btn btn-round" style="background-color:black;margin-left:45%;" [disabled]="startup.invalid || revenue || work || legal">Submit</button>
                                 </div>
                             </div>
                             </form>
+
+                            <div *ngIf="!reg_open">
+                                    <br/><br/><br/>
+                                    <marquee style="font-size:20px;color:white;">Registrations have been closed !</marquee>
+                            </div>
                         </div>
-                    </div>  
-            </div>
-
-
-
-
-<!--    <div class="boxed ">
-        <p style="font-size:20px;font-weight:bold;" class="text-center">LOGIN</p>
-        <br>
-      <form #f="ngForm" (ngSubmit)="login(f)">
-        <div class="form-group">
-        <label for="uname" >Username</label>
-        <input placeholder="&#xf2c0;&nbsp;&nbsp;Username" type="text" class="form-control" name="uname" id="uname" ngModel >
-        <br>
+                        <!-- </div>
+                    
+            </div> -->
       
-        <label for="pass">Password</label>
-        <input placeholder="&#xf023;&nbsp;&nbsp;Password" class="form-control" type="password" id="pass" name="pass" ngModel>
-        <br>
 
-        <h5>Number of Founders :
-            <select [ngModel]="selectedFounder" (ngModelChange)="onChange($event)" name="sel2">
-                <option [value]="i" *ngFor="let i of maximumFounders">{{i}}</option>
-            </select>
-        </h5>
-        <div *ngFor="let i of chosenOne">
-            <p>Founder {{i}}</p>
-        </div>
 
-        </div>
-        <div class="form-group ">
-        <button type="submit" class="btn btn-success">Login</button>
-        </div>
-      </form>
-      </div>-->
+    <!-- </div> -->
 
+    <div id="modal" class="modalsuccess"> 
+        <div class="modal-content animate" style="width:500px">
+          <div class="container" style="padding-left:3%;">  
+                <h2 style="font-size:20px;font-weight:700;margin-top:10px;"><span class="glyphicon glyphicon-ok-sign" style="color:green;font-size:30px;top:8px;"></span>  Thank-you for submitting your idea.<br/> Our Evaluation Team will get back to you shortly !</h2>
+          </div>
+        </div>
     </div>
 </div>

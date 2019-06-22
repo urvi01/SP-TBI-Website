@@ -23,8 +23,8 @@ input[type=text], input[type=password] {
 }
 
 /*Set a style for all buttons */
- button {
-    background: linear-gradient(60deg,#110d42, #d3d2e8);
+ button#login {
+    background-color: #1a3f74;
     /* background-color: #4CAF50; */
     color: white;
     padding: 14px 20px;
@@ -134,4 +134,86 @@ span.psw {
     .cancelbtn {
        width: 100%;
     }
+}
+
+button#login {
+   
+    border-radius: 5px;
+    margin-top: 10px;
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+    min-width: 200px;
+    display: table;
+    padding: 6px 9px;
+    border: none;
+    -webkit-transition: all 0.5s ease-out;
+    -moz-transition: all 0.5s ease-out;
+    -ms-transition: all 0.5s ease-out;
+    -o-transition: all 0.5s ease-out;
+    transition: all 0.5s ease-out;
+    text-align: center;
+    color: #fff;
+    background-color: #1a3f74;
+    text-decoration: none;
+}
+button#login:hover {
+    background: #f1f1f1 !important;
+}
+
+span {
+    position: relative;
+    z-index: 1;
+    line-height: 23px;
+    transition: 0.3s ease;
+    -webkit-transition: 0.3s ease;
+    -moz-transition: 0.3s ease;
+    -o-transition: 0.3s ease;
+    -ms-transition: 0.3s ease;
+}
+button#login:hover span {
+    color: #5a5a5a;
+}
+.btnBefore, .btnAfter {
+    content: '';
+    position: absolute;
+    height: 0;
+    width: 0;
+    border: solid #1a3f74;
+    border-width: 0;
+    border-radius: 0;
+    transition: 0;
+    -webkit-transition: 0;
+    -moz-transition: 0;
+    -o-transition: 0;
+    -ms-transition: 0;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    border-color: #1a3f74;
+    border-radius: 5px;
+}
+button#login .btnBefore {
+    right: 0;
+    bottom: 0;
+}
+button#login .btnAfter {
+    left: 0;
+    top: 0;
+}
+button#login:hover .btnBefore {
+    border-width: 0 0 3px 3px;
+}
+button#login:hover .btnAfter {
+    border-width: 3px 3px 0 0;
+}
+
+button#login:hover .btnAfter, button#login:hover .btnBefore {
+height: 100%;
+width: 100%;
+transition: width 0.5s ease, height 0.5s ease 0.5s, border-top-right-radius 0.1s ease 0.4s, border-bottom-left-radius 0.1s ease 0.4s, border-bottom-right-radius 0.1s ease 0.9s, border-top-left-radius 0.1s ease 0.9s;
+-webkit-transition: width 0.5s ease, height 0.5s ease 0.5s, border-top-right-radius 0.1s ease 0.4s, border-bottom-left-radius 0.1s ease 0.4s, border-bottom-right-radius 0.1s ease 0.9s, border-top-left-radius 0.1s ease 0.9s;
+-moz-transition: width 0.5s ease, height 0.5s ease 0.5s, border-top-right-radius 0.1s ease 0.4s, border-bottom-left-radius 0.1s ease 0.4s, border-bottom-right-radius 0.1s ease 0.9s, border-top-left-radius 0.1s ease 0.9s;
+-o-transition: width 0.5s ease, height 0.5s ease 0.5s, border-top-right-radius 0.1s ease 0.4s, border-bottom-left-radius 0.1s ease 0.4s, border-bottom-right-radius 0.1s ease 0.9s, border-top-left-radius 0.1s ease 0.9s;
+-ms-transition: width 0.5s ease, height 0.5s ease 0.5s, border-top-right-radius 0.1s ease 0.4s, border-bottom-left-radius 0.1s ease 0.4s, border-bottom-right-radius 0.1s ease 0.9s, border-top-left-radius 0.1s ease 0.9s;
 }

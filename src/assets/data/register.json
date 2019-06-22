@@ -1,101 +1,101 @@
 [
     {
-        "sid":1,
+        "formid":1,
         "primaryCustomer":"adults in age gap 20-30",
         "painPoint":"going to pay bills",
-        "operationalRevenue":"yes",
+        "operationalRevenue":"YES",
         "category":"finance",
         "competitors":"paytm",
-        "legalEntity":"yes",
-        "workingIdea":"no",
-        "description":"New app to pay online bills not just electricity but also household .",
+        "legalEntity":"YES",
+        "workingIdea":"NO",
+        "description":"New app to pay online bills NOt just electricity but also household .",
         "startupIdea":"Ease in payment of bills.",
         "startupName":"ForALL",
-        "Founders":[
+        "founders":[
             {
-                "founderName":"f1",
-                "founderEmail":"fsdfsd",
-                "founderContact":1233
+                "name":"f1",
+                "email":"fsdfsd",
+                "contact":1233
             },
             {
-                "founderName":"f2",
-                "founderEmail":"scsfesf",
-                "founderContact":1244
+                "name":"f2",
+                "email":"scsfesf",
+                "contact":1244
             }
         ]
     },
     {
-        "sid":2,
+        "formid":2,
         "primaryCustomer":"sports people",
         "painPoint":"going to pay bills",
-        "operationalRevenue":"no",
+        "operationalRevenue":"NO",
         "category":"finance",
         "competitors":"paytm",
-        "legalEntity":"no",
-        "workingIdea":"no",
+        "legalEntity":"NO",
+        "workingIdea":"NO",
         "description":"Compares all th rates of nearby sprts shops.",
         "startupIdea":"getting sports equipments of good quality at cheaper rates.",
         "startupName":"Kidz",
-        "Founders":[
+        "founders":[
             {
-                "founderName":"f1",
-                "founderEmail":"fsdfsd",
-                "founderContact":1233
+                "name":"f1",
+                "email":"fsdfsd",
+                "contact":1233
             }
         ]
     },
     {
-        "sid":3,
+        "formid":3,
         "primaryCustomer":"above 40 age group",
         "painPoint":"going to pay bills",
-        "operationalRevenue":"yes",
+        "operationalRevenue":"YES",
         "category":"finance",
         "competitors":"paytm",
-        "legalEntity":"no",
-        "workingIdea":"yes",
+        "legalEntity":"NO",
+        "workingIdea":"YES",
         "description":"New app that gives information regarding new government schemes.",
         "startupIdea":"easy monthly pension retrieval.",
         "startupName":"EaseRetirement3",
-        "Founders":[
+        "founders":[
             {
-                "founderName":"f1",
-                "founderEmail":"fsdfsd",
-                "founderContact":1233
+                "name":"f1",
+                "email":"fsdfsd",
+                "contact":1233
             },
             {
-                "founderName":"f2",
-                "founderEmail":"scsfesf",
-                "founderContact":1244
+                "name":"f2",
+                "email":"scsfesf",
+                "contact":1244
             },
             {
-                "founderName":"f2",
-                "founderEmail":"scsfesf",
-                "founderContact":1244
+                "name":"f2",
+                "email":"scsfesf",
+                "contact":1244
             }
         ]
     },
     {
-        "sid":4,
+        "formid":4,
         "primaryCustomer":"above 40 age group",
         "painPoint":"going to pay bills",
-        "operationalRevenue":"no",
+        "operationalRevenue":"NO",
         "category":"finance",
         "competitors":"paytm",
-        "legalEntity":"yes",
-        "workingIdea":"yes",
+        "legalEntity":"YES",
+        "workingIdea":"YES",
         "description":"New app that gives information regarding new government schemes.",
         "startupIdea":"easy monthly pension retrieval.",
         "startupName":"EaseRetirement4"
     },
     {
-        "sid":5,
+        "formid":5,
         "primaryCustomer":"above 40 age group",
         "painPoint":"going to pay bills",
-        "operationalRevenue":"yes",
+        "operationalRevenue":"YES",
         "category":"finance",
         "competitors":"paytm",
-        "legalEntity":"yes",
-        "workingIdea":"no",
+        "legalEntity":"YES",
+        "workingIdea":"NO",
         "description":"New app that gives information regarding new government schemes.",
         "startupIdea":"easy monthly pension retrieval.",
         "startupName":"EaseRetirement5"

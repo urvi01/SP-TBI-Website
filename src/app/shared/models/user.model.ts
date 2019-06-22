@@ -4,7 +4,7 @@ export class startupForm
     public sid:number;
     public rating:number;
     public note:string;
-    public round:string;
+    public status:string;
    public startupName:string;
    public startupIdea:string; 
    public category:string;  

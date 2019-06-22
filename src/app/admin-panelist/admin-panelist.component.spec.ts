@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AdminPanelistComponent } from './admin-panelist.component';
 
-describe('TableListComponent', () => {
+describe('AdminPanelistComponent', () => {
   let component: AdminPanelistComponent;
   let fixture: ComponentFixture<AdminPanelistComponent>;
 

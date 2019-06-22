@@ -1,0 +1,131 @@
+/* .round{
+    background-image: url("/assets/img/lastday.jpeg");
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0.5;
+    background-size: cover;
+    height: 700px;
+    background-color:transparent;
+} */
+
+button#round1 ,button#round2, button#round1end, button#round2end, button#startreg,button#startregend{
+   
+    border-radius: 5px;
+    margin-top: 10px;
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+    min-width: 200px;
+    display: table;
+    padding: 6px 9px;
+    border: none;
+    -webkit-transition: all 0.5s ease-out;
+    -moz-transition: all 0.5s ease-out;
+    -ms-transition: all 0.5s ease-out;
+    -o-transition: all 0.5s ease-out;
+    transition: all 0.5s ease-out;
+    text-align: center;
+    color: #fff;
+    background-color: rgb(26, 63, 116);
+    text-decoration: none;
+}
+button#round1:hover ,button#round2:hover, button#startreg:hover {
+    background: #f1f1f1 !important;
+}
+
+span {
+    position: relative;
+    z-index: 1;
+    line-height: 50px;
+    transition: 0.3s ease;
+    -webkit-transition: 0.3s ease;
+    -moz-transition: 0.3s ease;
+    -o-transition: 0.3s ease;
+    -ms-transition: 0.3s ease;
+}
+button#round1:hover span, button#round2:hover span, button#startreg:hover span {
+    color: #5a5a5a;
+}
+.btnBefore, .btnAfter {
+    content: '';
+    position: absolute;
+    height: 0;
+    width: 0;
+    border: solid #1a3f74;
+    border-width: 0;
+    border-radius: 0;
+    transition: 0;
+    -webkit-transition: 0;
+    -moz-transition: 0;
+    -o-transition: 0;
+    -ms-transition: 0;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    border-color: #1a3f74;
+    border-radius: 5px;
+}
+button#round1 .btnBefore,button#round2 .btnBefore ,button#startreg .btnBefore {
+    right: 0;
+    bottom: 0;
+}
+button#round1 .btnAfter,button#round2 .btnAfter ,button#startreg .btnAfter  {
+    left: 0;
+    top: 0;
+}
+button#round1:hover .btnBefore,button#round2:hover .btnBefore,button#startreg:hover .btnBefore {
+    border-width: 0 0 3px 3px;
+}
+button#round1:hover .btnAfter,button#round2:hover .btnAfter ,button#startreg:hover .btnAfter{
+    border-width: 3px 3px 0 0;
+}
+
+button#round1:hover .btnAfter, button#round1:hover .btnBefore,button#round2:hover .btnAfter, button#round2:hover .btnBefore,button#startreg:hover .btnAfter, button#startreg:hover .btnBefore {
+height: 100%;
+width: 100%;
+transition: width 0.5s ease, height 0.5s ease 0.5s, border-top-right-radius 0.1s ease 0.4s, border-bottom-left-radius 0.1s ease 0.4s, border-bottom-right-radius 0.1s ease 0.9s, border-top-left-radius 0.1s ease 0.9s;
+-webkit-transition: width 0.5s ease, height 0.5s ease 0.5s, border-top-right-radius 0.1s ease 0.4s, border-bottom-left-radius 0.1s ease 0.4s, border-bottom-right-radius 0.1s ease 0.9s, border-top-left-radius 0.1s ease 0.9s;
+-moz-transition: width 0.5s ease, height 0.5s ease 0.5s, border-top-right-radius 0.1s ease 0.4s, border-bottom-left-radius 0.1s ease 0.4s, border-bottom-right-radius 0.1s ease 0.9s, border-top-left-radius 0.1s ease 0.9s;
+-o-transition: width 0.5s ease, height 0.5s ease 0.5s, border-top-right-radius 0.1s ease 0.4s, border-bottom-left-radius 0.1s ease 0.4s, border-bottom-right-radius 0.1s ease 0.9s, border-top-left-radius 0.1s ease 0.9s;
+-ms-transition: width 0.5s ease, height 0.5s ease 0.5s, border-top-right-radius 0.1s ease 0.4s, border-bottom-left-radius 0.1s ease 0.4s, border-bottom-right-radius 0.1s ease 0.9s, border-top-left-radius 0.1s ease 0.9s;
+}
+
+.modalround1 ,.modalround2 ,.stopround2, .startregmodal{
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.6); /* Black w/ opacity */
+    padding-top: 15%;
+}
+
+/* Modal Content/Box */
+.modal-content {
+    background-color: #fefefe;
+    margin: 5% auto 5% auto; /* 5% from the top, 5% from the bottom and centered */
+    border: 1px solid #888;
+    width: auto; /* Could be more or less, depending on screen size */
+    max-width:600px;
+}
+
+
+/* Add Zoom Animation */
+.animate {
+    -webkit-animation: animatezoom 0.6s;
+    animation: animatezoom 0.6s
+}
+
+@-webkit-keyframes animatezoom {
+    from {-webkit-transform: scale(0)} 
+    to {-webkit-transform: scale(1)}
+}
+    
+@keyframes animatezoom {
+    from {transform: scale(0)} 
+    to {transform: scale(1)}
+}

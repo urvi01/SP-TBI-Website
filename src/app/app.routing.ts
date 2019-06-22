@@ -16,6 +16,7 @@ import { PanelistComponent } from './panelist/panelist.component';
 import { LoginComponent } from './login/login.component';
 import { AdminPanelistComponent } from './admin-panelist/admin-panelist.component';
 import { FormsComponent } from './forms/forms.component';
+import { AdminComponent } from './admin/admin.component';
 
 const routes: Routes =[
     { path: 'dashboard',      component: DashboardComponent },
@@ -31,6 +32,7 @@ const routes: Routes =[
     { path: 'registration',   component:RegistrationComponent},
     { path: 'panelist',        component:PanelistComponent},
     { path:'login',            component:LoginComponent},
+    { path:'admin',            component:AdminComponent},
     { path: '',               redirectTo: 'dashboard', pathMatch: 'full' }
 ];
 

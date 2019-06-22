@@ -4,37 +4,39 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header" data-background-color="red">
-                            <h4 class="title">List of StartUps</h4>
+                            <h4 class="title">List of Startups</h4>
                             <p class="category" style="font-size:20px">Limit : <strong>{{limit}}</strong></p><p class="category" style="font-size:20px"> Selected : <strong>{{count}}</strong></p>
                         </div>
-
+                        <br/>
                         <div class="row">
-                            <div class="col-md-1"></div>
-                            <div class="col-md-1">
+                            <div class="col-md-1 col-sm-0"></div>
+                            <div class="col-md-1 col-sm-6">
                                 <label class="control-label" style="font-size:20px" >Legal Entity</label>
                             </div>
-                            <div class="col-md-2">
+                            <div class="col-md-2 col-sm-6">
                                 <br/>
-                                <select (ngModelChange)="Legalising($event)" name="legal" id="legal" style="font-size:20px;padding-left:10px;" [(ngModel)]="legal1" #legal="ngModel">
-                                    <option  [value]="i" *ngFor="let i of legalOptions" style="font-size:20px;">{{i}}</option>
+                                <select (ngModelChange)="Legalising($event)" name="legal" id="legal" style="font-size:15px;padding-left:10px;" [(ngModel)]="legal1" #legal="ngModel">
+                                    <option  [value]="i" *ngFor="let i of legalOptions" style="font-size:15px;">{{i}}</option>
                                 </select>
                             </div>
-                            <div class="col-md-2">
-                                <label class="control-label" style="font-size:20px;padding-left:30px;" >Operational Revenue</label>
+                            <div class="col-md-1 col-sm-0"></div>
+                            <div class="col-md-1 col-sm-6">
+                                <label class="control-label" style="font-size:20px;" >Operational Revenue</label>
                             </div>
-                            <div class="col-md-2">
+                            <div class="col-md-2 col-sm-6">
                                 <br/>
-                                <select (ngModelChange)="Revenueing($event)" name="revenue" id="revenue" style="font-size:20px;padding-left:10px;" [(ngModel)]="revenue1" #revenue="ngModel">
-                                    <option  [value]="i" *ngFor="let i of legalOptions" style="font-size:20px;">{{i}}</option>
+                                <select (ngModelChange)="Revenueing($event)" name="revenue" id="revenue" style="font-size:15px;padding-left:10px;" [(ngModel)]="revenue1" #revenue="ngModel">
+                                    <option  [value]="i" *ngFor="let i of legalOptions" style="font-size:15px;">{{i}}</option>
                                 </select>
                             </div>
-                            <div class="col-md-1">
+                            <div class="col-md-1 col-sm-0"></div>
+                            <div class="col-md-1 col-sm-6">
                                 <label class="control-label" style="font-size:20px" >Working Idea</label>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-2 col-sm-6">
                                 <br/>
-                                <select (ngModelChange)="Working($event)" name="work" id="work" style="font-size:20px;padding-left:10px;" [(ngModel)]="work1" #work="ngModel">
-                                    <option  [value]="i" *ngFor="let i of legalOptions" style="font-size:20px;">{{i}}</option>
+                                <select (ngModelChange)="Working($event)" name="work" id="work" style="font-size:15px;padding-left:10px;" [(ngModel)]="work1" #work="ngModel">
+                                    <option  [value]="i" *ngFor="let i of legalOptions" style="font-size:15px;">{{i}}</option>
                                 </select>
                             </div>
                             
@@ -43,7 +45,7 @@
                     <hr>
                         <div class="row">
                             <div class="col-md-10"></div>
-                            <div class="col-md-2">
+                            <div class="col-md-2 checkbox">
                                     <label class="control-label" style="font-size:20px" >
                                         <input type="checkbox" (ngModelChange)="rejectingAll($event)" name="rej" id="rej" [(ngModel)]="reject1" #rej="ngModel"/>
                                         Reject All
@@ -53,13 +55,12 @@
                         <div class="card-content table-responsive">
                             <table class="table" >
                                 <thead style="font-size:15px;">
-                                    <tr >
+                                    <tr>
                                         <th><b>Startup Name</b></th>
                                         <th><b>Startup Idea</b></th>
-                                        <th style="text-align:center;"><b>Description</b></th>
-                                        <th>Legal Entity</th>
-                                        <th>Operational Revenue</th>
-                                        <th>Working Idea</th>
+                                        <th><b>Legal Entity</b></th>
+                                        <th><b>Operational Revenue</b></th>
+                                        <th><b>Working Idea</b></th>
                                         <th style="text-align:center;"><b>Rating</b></th>
                                         <th style="text-align:center;"><b>Note</b></th>
                                         <th class="text-success"><b>Accept</b></th>
@@ -67,22 +68,21 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                        <tr *ngFor="let stup of startups | paginate: {itemsPerPage: 1, currentPage:page, id: '1'}; let i = index" >
-                                                <td (click)="goToForm(stup.sid)" id=stup.sid name=stup.sid>{{stup.startupName}}</td>
-                                                <td>{{stup.startupIdea}}</td>
-                                                <td>{{stup.description}}</td>
-                                                <td>{{stup.legalEntity}}</td>
-                                                <td>{{stup.operationalRevenue}}</td>
-                                                <td>{{stup.workingIdea}}</td>
-                                                <td ><input [name]=stup.rating [(ngModel)]=stup.rating (ngModelChange)="sessionStoring($event)" style="border-width:0ch"/></td>
-                                                <td  ><textarea [name]=stup.note rows="2" [(ngModel)]=stup.note (ngModelChange)="sessionStoring($event)" style="border-width:0ch"></textarea></td>
-                                                <td  ><input type="radio" [name]=stup.startupName style="height:0%;width:0%;" [id]=stup.startupName  [value]="yes" [checked]="stup.round=='yes'"  (change)="onAcceptReject(stup.sid,'yes')"></td>
-                                                <td ><input type="radio" [name]=stup.startupName style="height:0%;width:0%;" [id]=stup.startupName    [value]="no"   [checked]="stup.round=='no'" (change)="onAcceptReject(stup.sid,'no')"></td>
+                                        <tr  class="list" *ngFor="let stup of startups | paginate: {itemsPerPage: 20, currentPage:page, id: '1'}; let i = index" >
+                                                <td (click)="goToForm(stup.formid)" id=stup.formid name=stup.formid>{{stup.startupName}}</td>
+                                                <td (click)="goToForm(stup.formid)">{{stup.startupIdea}}</td>
+                                                <td (click)="goToForm(stup.formid)">{{stup.legalEntity}}</td>
+                                                <td (click)="goToForm(stup.formid)"> {{stup.operationalRevenue}}</td>
+                                                <td (click)="goToForm(stup.formid)">{{stup.workingIdea}}</td>
+                                                <td ><input class="alignment" [name]=stup.rating [(ngModel)]=stup.rating (ngModelChange)="sessionStoring($event)" style="border-width:0ch"/></td>
+                                                <td  ><textarea class="alignment" [name]=stup.note rows="2" [(ngModel)]=stup.note (ngModelChange)="sessionStoring($event)" style="border-width:0ch"></textarea></td>
+                                                <td  ><input type="radio" [name]=stup.startupName style="height:0%;width:0%;" [id]=stup.startupName  [value]="yes" [checked]="stup.status=='yes'"  (change)="onAcceptReject(stup.formid,'yes')"></td>
+                                                <td ><input type="radio" [name]=stup.startupName style="height:0%;width:0%;" [id]=stup.startupName    [value]="no"   [checked]="stup.status=='no'" (change)="onAcceptReject(stup.formid,'no')"></td>
                                             </tr>
                                 </tbody>
                             </table>
                             <pagination-controls (pageChange)="page = $event" id="1"
-                                maxSize="5"
+                                maxSize="20"
                                 directionLinks="true"
                                 autoHide="true">
                             </pagination-controls>
@@ -102,57 +102,96 @@
                                 <h4 class="title">Startup Form</h4>
                                 <p class="category">Details about selected startup</p>
                             </div>
-                            <div class="card-content">
-
+                            <div class="card-content viewingForm ">
+                                
                                     <div><h3 class="text-center">{{currentevalStartup.startupName}}</h3></div>
                                     <table>
                                         <thead>
                                             <th style="width:200px"></th>
                                             <th></th>
                                         </thead>
-                                        <tbody >
-                                            <tr>
-                                                <td class="heading">IDEA</td>
-                                                <td>{{currentevalStartup.startupIdea}}</td>
-                                            </tr>
-                                            <tr>
-                                                    <td class="heading">DESCRIPTION</td>
-                                                    <td>{{currentevalStartup.description}}</td>
-                                                </tr>
-                                            <tr>
-                                                <td class="heading">primary Customer</td>
-                                                <td>{{currentevalStartup.primaryCustomer}}</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="heading">Targetted Pain Point</td>
-                                                <td>{{currentevalStartup.painPoint}}</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="heading" >Operational Revenue</td>
-                                                <td>{{currentevalStartup.operationalRevenue}}</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="heading">Founders</td>
-                                                <td >
-                                                    <div class="row" *ngFor="let f of currentevalStartup.Founders">
-                                                        <div class="col-md-4">{{f.founderName}}</div>   
-                                                        <div class="col-md-4">{{f.founderEmail}}</div>   
-                                                        <div class="col-md-4">{{f.founderContact}}</div> 
-                                                        <br/>
-                                                    </div>  
-                                                </td>
-                                            </tr>
+                                        <tbody style="font-size:15px" >
+                                            <tbody style="font-size:15px" >
+                                                <tr>
+                                                    <td class="heading">IDEA</td>
+                                                    <td style="font-size:1.4em;font-weight:700;">:&nbsp;</td>
+                                                    <td>{{currentevalStartup.startupIdea}}</td>
+                                                </tr><br/>
+                                                <tr>
+                                                        <td class="heading">DESCRIPTION</td>
+                                                        <td style="font-size:1.4em;font-weight:700;">:&nbsp;</td>
+                                                        <td>{{currentevalStartup.description}}</td>
+                                                    </tr><br/>
+                                                <tr>
+                                                        <td class="heading">CATEGORY</td>
+                                                        <td style="font-size:1.4em;font-weight:700;">:&nbsp;</td>
+                                                        <td>{{currentevalStartup.category}}</td>
+                                                    </tr><br/>
+                                                <tr>
+                                                    <td class="heading" >Legal Entity</td>
+                                                    <td style="font-size:1.4em;font-weight:700;">:&nbsp;</td>
+                                                    <td>{{currentevalStartup.legalEntity}}</td>
+                                                </tr><br/>
+                                                <tr>
+                                                    <td class="heading" >Working Model</td>
+                                                    <td style="font-size:1.4em;font-weight:700;">:&nbsp;</td>
+                                                    <td>{{currentevalStartup.workingIdea}}</td>
+                                                </tr><br/>
+                                                <tr>
+                                                    <td class="heading" >Operational Revenue</td>
+                                                    <td style="font-size:1.4em;font-weight:700;">:&nbsp;</td>
+                                                    <td>{{currentevalStartup.operationalRevenue}}</td>
+                                                </tr><br/>
+                                                <tr>
+                                                    <td class="heading">Primary Customer</td>
+                                                    <td style="font-size:1.4em;font-weight:700;">:&nbsp;</td>
+                                                    <td>{{currentevalStartup.primaryCustomer}}</td>
+                                                </tr><br/>
+                                                <tr>
+                                                    <td class="heading">Targetted Pain Point</td>
+                                                    <td style="font-size:1.4em;font-weight:700;">:&nbsp;</td>
+                                                    <td>{{currentevalStartup.painPoint}}</td>
+                                                </tr><br/>
+                                                <tr>
+                                                        <td class="heading">Competitors</td>
+                                                        <td style="font-size:1.4em;font-weight:700;">:&nbsp;</td>
+                                                        <td>{{currentevalStartup.competitors}}</td>
+                                                    </tr><br/>
+                                                <tr>
+                                                    <td class="heading">Different From Competitors</td>
+                                                    <td style="font-size:1.4em;font-weight:700;">:&nbsp;</td>
+                                                    <td>{{currentevalStartup.differentFromCompetitors}}</td>
+                                                </tr><br/>
+                                                 <tr>
+                                                    <td class="heading">Monetization Model</td>
+                                                    <td style="font-size:1.4em;font-weight:700;">:&nbsp;</td>
+                                                    <td>{{currentevalStartup.moneyModel}}</td>
+                                                </tr><br/>
+                                                <tr>
+                                                    <td class="heading">Founders</td>
+                                                    <td style="font-size:1.4em;font-weight:700;">:&nbsp;</td>
+                                                    <td >
+                                                        <div class="row" *ngFor="let f of currentevalStartup.founders">
+                                                            <div class="col-md-4">{{f.name}}</div>   
+                                                            <div class="col-md-6">{{f.email}}</div>   
+                                                            <div class="col-md-2">{{f.contact}}</div> 
+                                                            <br/>
+                                                        </div>  
+                                                    </td>
+                                                </tr><br/>
                                         </tbody>
                                     </table>
                                <div class="form-group">
-                                <h5>Rating :</h5> <input class="form-control" [name]=currentevalStartup.rating type="text" (ngModelChange)="sessionStoring($event)" [(ngModel)]=currentevalStartup.rating />
+                                <h5 class="heading">Rating :</h5> <input class="form-control" [name]=currentevalStartup.rating type="text" (ngModelChange)="sessionStoring($event)" [(ngModel)]=currentevalStartup.rating />
                                </div>
                                <div class="form-group">
-                               <h5> Note :</h5> <input class="form-control" [name]=currentevalStartup.note type="text" (ngModelChange)="sessionStoring($event)" [(ngModel)]=currentevalStartup.note />
+                               <h5 class="heading"> Note :</h5> <input class="form-control" [name]=currentevalStartup.note type="text" (ngModelChange)="sessionStoring($event)" [(ngModel)]=currentevalStartup.note />
                                 </div>
-                            </div>
+                            
                             <div class="form-group ">
                                 <button type="button" class="btn btn-round" (click)="goToTop(currentevalStartup.startupName)" style="margin-left:45%;background-color:#1a3f74;font-size:15px;">Back to list</button>
+                            </div>
+                            
                             </div>
                         </div>
                     </div>

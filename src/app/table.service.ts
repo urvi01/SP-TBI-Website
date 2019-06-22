@@ -15,10 +15,10 @@ export class TableService {
 
   addToList(obj:string){
     console.log(obj);
-    this.getPanelists().subscribe(
-      string =>{ TableService.Panelists=string;
-      }
-    );
+    // this.getPanelists().subscribe(
+    //   string =>{ TableService.Panelists=string;
+    //   }
+    // );
   }
 
   delFromList(obj:string){
@@ -34,10 +34,11 @@ export class TableService {
       alert("Panelist not found");
   }
   
-  addPanelist(s:string):Observable<string>{
+  addPanelist(s:any):Observable<any>{
+    console.log('blabla');
       let headers = new Headers({ 'Content-Type': 'application/json' });
       let options = new RequestOptions({ headers: headers });
-      return this.http.post('',s, options)
+      return this.http.post('http://localhost:8080/sptbi/webapi/admin',s, options)
                  .map(this.extractData)
                  .catch(this.handleErrorObservable);
     }
@@ -51,17 +52,19 @@ export class TableService {
     } 
 
     deletePanelist(s:string):Observable<string>{
+      console.log(s);
       let headers = new Headers({ 'Content-Type': 'application/json' });
       let options = new RequestOptions({ headers: headers });
-      return this.http.post('',s, options)
+      return this.http.delete('http://localhost:8080/sptbi/webapi/admin?username='+encodeURIComponent(s))
                  .map(this.extractData)
                  .catch(this.handleErrorObservable);
     }
 
-    getPanelists():Observable<string[]>{
-      return this.http.get('addpanelists/names')
-                 .map(this.extractData)
-                 .catch(this.handleErrorObservable);  
+    getPanelists(){
+      console.log('Aashay rocks');
+       //return this.http.get('assets/data/panelist.json')
+      return this.http.get('http://localhost:8080/sptbi/webapi/admin/getPanelists')
+      .flatMap((data) =>data.json());  
     }
 
     

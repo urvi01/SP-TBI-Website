@@ -15,6 +15,7 @@ import { SessionStorageService } from 'ngx-webstorage';
   providers:[UserService,FormBuilder,FormsModule,SessionStorageService]
 })
 export class RegistrationComponent implements OnInit {
+  namename:string="";
   F1:{founderName:string,founderEmail:string,founderContact:number}={founderName:"",founderEmail:"",founderContact:0};
   F2:{founderName:string,founderEmail:string,founderContact:number}={founderName:"",founderEmail:"",founderContact:0};
   F3:{founderName:string,founderEmail:string,founderContact:number}={founderName:"",founderEmail:"",founderContact:0};
@@ -23,25 +24,35 @@ export class RegistrationComponent implements OnInit {
   F6:{founderName:string,founderEmail:string,founderContact:number}={founderName:"",founderEmail:"",founderContact:0};
   FounderList:any[]=[];
   maximumFounders:number[]=[1,2,3,4,5,6];
-  categories:string[]=['finance','technology','marketting'];
+  categories:string[]=['Consumer','E-Commerce','Education','Healthcare','Logistics','Manufacturing','Technology','Others'];
   selectedCategory='';
   selectedFounder = 1;
   legalEntity:string="";
   workingModel:string="";
   operationalRevenue:string="";
   u:startupForm;
-
+  revenue:boolean=true;
+  work:boolean=true;
+  legal:boolean=true;
+  success:boolean=false;
   f1:boolean=true;f2:boolean=false;f3:boolean=false;f4:boolean=false;f5:boolean=false;f6:boolean=false;
-  
-
+  reg_open:boolean=true;
+  count:number;
   constructor(private  userService: UserService,private router:Router, private fb : FormBuilder,public sstorage:SessionStorageService) {
     
    }
 
   ngOnInit() {
+    this.count=0;
+    this.userService.getRound().subscribe((data)=>{
+      if(data['statusEndRound1']=='END')
+        this.reg_open=false;
+    });
   }
-  
-
+  namechange(current)
+  {
+      this.namename=current;  
+  }
 
   login(f:NgForm)
   {
@@ -102,12 +113,31 @@ export class RegistrationComponent implements OnInit {
     this.u.workingIdea=this.workingModel;
     this.u.operationalRevenue=this.operationalRevenue;
     console.log(this.u);
-    this.userService.submitRegistration(this.u).subscribe(
-      startupForm => {
-        console.log("successful");					   
+    this.userService.verName(this.namename).subscribe((data)=>{
+      if(data['check']=='YES')
+      {
+        if(alert("The Startup Name already exists."))
+        {
+          console.log('Duplicate startup name');
+          this.namename="";
+        }      
       }
-    );
-   
+      else
+      {
+        this.userService.submitRegistration(this.u).subscribe(
+          startupForm => {
+            console.log("successful");	
+            const Popup = <HTMLElement>document.querySelector('.modalsuccess');
+            Popup.style.display='block'; 
+            console.log(this.success);
+            setTimeout(() => {
+              Popup.style.display='none'; 
+              this.router.navigate(['dashboard']);
+            }, 3000);				   
+          }
+        ); 
+      }
+    });
     //INITIALISING THE STARTUPFORM U VARIABLE
 
 
@@ -192,14 +222,17 @@ export class RegistrationComponent implements OnInit {
     } 
 
     onLegalChange(legal) {
+      this.legal=false;
       this.legalEntity=legal;
       console.log(legal);
    }
    onWorkingChange(work) {
+     this.work=false;
      this.workingModel=work;
     console.log(work);
  }
  onRevenueChange(revenue) {
+   this.revenue=false;
    this.operationalRevenue=revenue;  
 }
 }

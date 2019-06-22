@@ -1,30 +1,45 @@
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, OnChanges } from '@angular/core';
 import { Location, LocationStrategy, PathLocationStrategy, PopStateEvent } from '@angular/common';
 import 'rxjs/add/operator/filter';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { Router, NavigationEnd, NavigationStart } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 import PerfectScrollbar from 'perfect-scrollbar';
+import { SessionStorageService } from 'ngx-webstorage';
+import { Subject } from 'rxjs';
+
 
 declare const $: any;
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
+  providers:[SessionStorageService]
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit,OnChanges {
     private _router: Subscription;
     private lastPoppedUrl: string;
     private yScrollStack: number[] = [];
-
+    abc:boolean;
     @ViewChild(NavbarComponent) navbar: NavbarComponent;
+    private eventsSubject: Subject<boolean> = new Subject<boolean>();
+    constructor( public location: Location, private router: Router,public sstorage:SessionStorageService) {}
 
-    constructor( public location: Location, private router: Router) {}
-
+    ngOnChanges(){
+       
+    }
     ngOnInit() {
+        console.log('app');
+        if(this.sstorage.retrieve('username'))
+        {
+           this.hide(false);
+        }
+        else{
+           this.hide(true);
+        }
         $.material.init();
-        const elemMainPanel = <HTMLElement>document.querySelector('.main-panel');
+      /*  const elemMainPanel = <HTMLElement>document.querySelector('.main-panel');
         const elemSidebar = <HTMLElement>document.querySelector('.sidebar .sidebar-wrapper');
 
         this.location.subscribe((ev:PopStateEvent) => {
@@ -50,7 +65,7 @@ export class AppComponent implements OnInit {
         if (window.matchMedia(`(min-width: 960px)`).matches && !this.isMac()) {
             let ps = new PerfectScrollbar(elemMainPanel);
             ps = new PerfectScrollbar(elemSidebar);
-        }
+        }*/
     }
     ngAfterViewInit() {
         this.runOnRouteChange();
@@ -63,6 +78,35 @@ export class AppComponent implements OnInit {
         }
         else {
             return true;
+        }
+    }
+    hide(log:boolean)
+    {
+        this.abc=log;
+        if(log==false)
+        {
+            const elemMainPanel = <HTMLElement>document.querySelector('.main-panel');
+            elemMainPanel.style.width='100%';    
+        }
+        else{
+            const elemMainPanel = <HTMLElement>document.querySelector('.main-panel');
+            const elemSidebar = <HTMLElement>document.querySelector('.sidebar .sidebar-wrapper');
+            if (window.matchMedia(`(min-width: 991px)`).matches){
+                elemMainPanel.style.width='calc(100% - 260px)';
+            }
+            else
+            {
+                elemMainPanel.style.width='100%';
+            }
+           
+        }
+    }
+    hideSidebar(log:boolean)
+    {
+        if(log==false)
+        {
+            console.log("bla");
+            this.eventsSubject.next(true) ;  
         }
     }
     runOnRouteChange(): void {

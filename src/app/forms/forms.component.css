@@ -18,32 +18,26 @@
     font-size: 17px;
     width: 50%;
     }
-    input[type='radio']:after {
-        width: 20px;
-        height: 20px;
-        border-radius: 20px;
-        top: -2px;
-        left: -1px;
-        position: relative;
-        background-color: #d1d3d1;
-        content: '';
-        display: inline-block;
-        visibility: visible;
-        border: 2px solid white;
-        margin-left: 12px;
-    }
-    
-    input[type='radio']:checked:after {
-        width: 20px;
-        height: 20px;
-        border-radius: 20px;
-        top: -2px;
-        left: -1px;
-        position: relative;
-        background-color:#1a3f74;
-        content: '';
-        display: inline-block;
-        visibility: visible;
-        border: 2px solid white;
-        margin-left: 12px;
-    }
+tr.txt th{
+    font-size:15px;
+    font-weight: 700;
+}
+td{
+    text-align: left;
+}
+tr.list:hover{
+    -webkit-box-shadow: 0 5px 11px 0 rgba(85, 182, 255, 0.28), 0 4px 15px 0 rgba(36, 133, 255, 0.15);
+    box-shadow: 0 5px 11px 0 rgba(85, 182, 255, 0.28), 0 4px 15px 0 rgba(36, 133, 255, 0.15);
+}
+.heading{
+    font-size: 0.9em;
+    font-weight: 600;
+    text-transform: uppercase;
+    line-height: 1.5em;
+}
+.viewingForm{
+    background-image: url("/assets/img/formbg.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}

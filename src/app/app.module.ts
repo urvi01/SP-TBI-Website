@@ -9,6 +9,7 @@ import { ComponentsModule } from './components/components.module';
 import {Ng2Webstorage} from 'ngx-webstorage';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ModalModule } from 'ngx-modialog';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BootstrapModalModule, bootstrap4Mode } from 'ngx-modialog/plugins/bootstrap';
 
 import { AuthGuard } from './auth.guard';
@@ -30,6 +31,8 @@ import { PanelistComponent } from './panelist/panelist.component';
 import { LoginComponent } from './login/login.component';
 import { AdminPanelistComponent } from './admin-panelist/admin-panelist.component';
 import { FormsComponent } from './forms/forms.component';
+import { AdminComponent } from './admin/admin.component';
+
 
 
 @NgModule({
@@ -47,7 +50,8 @@ import { FormsComponent } from './forms/forms.component';
     PanelistComponent,
     LoginComponent,
     AdminPanelistComponent,
-    FormsComponent
+    FormsComponent,
+    AdminComponent
 
   ],
   imports: [
@@ -59,6 +63,7 @@ import { FormsComponent } from './forms/forms.component';
     RouterModule,
     AppRoutingModule,
     Ng2PaginationModule,
+    NgbModule.forRoot(),
     BrowserAnimationsModule
   ],
   providers: [LoginToggleService, TableService,AuthGuard],

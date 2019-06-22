@@ -3,6 +3,8 @@ import { TableService } from '../table.service';
 import { Router } from '@angular/router';
 import { LoginToggleService } from '../login-toggle.service';
 import { startupForm } from '../shared/models/user.model';
+import { UserService } from '../shared/service/user.service';
+import { THIS_EXPR } from '../../../node_modules/@angular/compiler/src/output/output_ast';
 
 
 
@@ -11,7 +13,7 @@ import { startupForm } from '../shared/models/user.model';
   selector: 'app-forms',
   templateUrl: './forms.component.html',
   styleUrls: ['./forms.component.css'],
-  providers:[TableService, LoginToggleService]
+  providers:[TableService, LoginToggleService,UserService]
 })
 export class FormsComponent implements OnInit {
   exceeded:boolean=false;
@@ -20,132 +22,101 @@ export class FormsComponent implements OnInit {
   rejected:number;
   currentEvalID:number;
   count:number=0;
-  currentevalStartup:startupForm=new startupForm();
-  
-  /*currentevalStartup:{sid:number,startupName:string,startupIdea:string,description:string,rating:number,round:string,note:string}={
-        sid:0,
-        startupName:"default",
-        startupIdea:"default",
-        description:"default",
-        rating:0,
-        round:"default",
-        note:""
-  };*/
-  startups:startupForm[]=[];
-  s1:startupForm=new startupForm();
-  s2:startupForm=new startupForm();
-  s3:startupForm=new startupForm();
-  s4:startupForm=new startupForm();
-  /*
-  startups:{sid:number,startupName:string,startupIdea:string,description:string,rating:number,round:string,note:string}[]=[
-    {
-        sid:5,
-        startupName:"abc",
-        startupIdea:"abc",
-        description:"abc",
-        rating:0,
-        round:"default",
-        note:""
-    },
-
-    {
-      sid:6,
-      startupName:"cde",
-      startupIdea:"cde",
-      description:"cde",
-      rating:0,
-      round:"default",
-      note:""
-    },
-    {
-      sid:7,
-      startupName:"def",
-      startupIdea:"def",
-      description:"def",
-      rating:0,
-      round:"default",
-      note:""
-    }
-  ];*/
-  constructor(private logger:LoginToggleService, private router: Router, private Table: TableService) {
-    this.s1.sid=1;
-    this.s1.primaryCustomer="adults in age gap 20-30";
-    this.s1.painPoint="going to pay bills";
-    this.s1.operationalRevenue="yes";
-    this.s1.category="finance";
-    this.s1.competitors="paytm";
-    this.s1.description="New app to pay online bills not just electricity but also household .";
-    this.s1.startupIdea="Ease in payment of bills.";
-    this.s1.startupName="ForALL";
-    this.startups.push(this.s1);
-
-    this.s2.sid=2;
-    this.s2.primaryCustomer="sports people";
-    this.s2.painPoint="going to pay bills";
-    this.s2.operationalRevenue="no";
-    this.s2.category="finance";
-    this.s2.competitors="paytm";
-    this.s2.description="Compares all th rates of nearby sprts shops.";
-    this.s2.startupIdea="getting sports equipments of good quality at cheaper rates.";
-    this.s2.startupName="Kidz";
-    this.startups.push(this.s2);
-
-    this.s3.sid=3;
-    this.s3.primaryCustomer="above 40 age group";
-    this.s3.painPoint="going to pay bills";
-    this.s3.operationalRevenue="yes";
-    this.s3.category="finance";
-    this.s3.competitors="paytm";
-    this.s3.description="New app that gives information regarding new government schemes.";
-    this.s3.startupIdea="easy monthly pension retrieval.";
-    this.s3.startupName="EaseRetirement";
-    this.startups.push(this.s3);
-  
+  currentevalStartup=[];
+  startups=[];
+  startupsCopy=[];
+  category1:string='ALL';
+  status1:string='ALL';
+  round1:string='ALL';
+  temp=[];
+  constructor(private logger:LoginToggleService, private router: Router, private Table: TableService,public userService:UserService) {
+    this.userService.getFormForFounder().subscribe((data)=>{
+      this.startups.push(data);
+      this.startupsCopy.push(data);
+});
    }
-   finalCheck()
-   {
-     console.log(this.startups);
-     console.log("i got submitted");
-   }
-  onAcceptReject(sid:number,val:string)
+  //  selectCategory(cat:string){
+  //   this.startups=[];
+  //   for(let entry of this.startupsCopy)
+  //   {
+  //     if(cat===entry.category)
+  //     {
+  //       this.startups.push(entry);
+  //     }
+  //   }
+  //   if(cat=='All')
+  //   {
+  //     this.startups=this.startupsCopy;
+  //   }
+  // }
+  selectStatus(stat:string)
   {
-      if(val==='yes')
-      {
-        for(let entry of this.startups)
+    this.status1=stat;
+    this.selectCategoryStatus();
+  }
+  selectRound(round:string)
+  {
+    this.round1=round;
+    this.selectCategoryStatus();
+  }
+  selectCategory(cat:string)
+  {
+    this.category1=cat;
+    this.selectCategoryStatus();
+  }
+  selectCategoryStatus(){
+    this.startups=[];
+    this.temp=[];
+    for(let entry of this.startupsCopy)
+    {
+        if(this.category1=='ALL' && this.status1=='ALL')  //if both category and status are all
         {
-          if(entry.sid===sid)
-          {
-              entry.round='yes';
-              break;
-          }
+          this.temp.push(entry);
         }
-      }
-      else
-      {
-        for(let entry of this.startups)
+        if(this.category1=='ALL' && this.status1!='ALL')   //if just category is all
         {
-          if(entry.sid===sid)
-          {
-              entry.round='no';
-              break;
-          }
+          if(this.status1=='ACCEPTED' && entry.status=='YES')
+            {
+              this.temp.push(entry);
+            }
+            else if(this.status1=='REJECTED' && entry.status=='NO')
+            {
+              this.temp.push(entry);
+            }  
         }
+        if(this.category1==entry.category && this.category1!='ALL') 
+        {
+            if(this.status1=='ACCEPTED' && entry.status=='YES') //if status is not all and category is not all
+            {
+              this.temp.push(entry);
+            }
+            else if(this.status1=='REJECTED' && entry.status=='NO') //if status is not all and category is not all
+            {
+              this.temp.push(entry);
+            }   
+            else if(this.status1=='ALL') //if status is  all and category is not all
+            {
+              this.temp.push(entry);
+            }
+        }
+    }
+    for(let entry of this.temp)
+    {
+      if(this.round1=='ALL')
+      {
+        this.startups.push(entry);
       }
-    this.count=0;
-    for(let entry of this.startups)
-    {
-       if(entry.round==='yes')
-          this.count++;
-    }
-    if(this.count>2)
-    {
-      this.exceeded=true;
-    }
-    else
-    {
-      this.exceeded=false;
+      else if(this.round1=='1' && entry.round=='1')
+      {
+        this.startups.push(entry);
+      }
+      else if(this.round1=='2' && entry.round=='2')
+      {
+        this.startups.push(entry);
+      }
     }
   }
+  
   goToForm(startupID:number)
   { 
     console.log(this.count);
@@ -164,35 +135,22 @@ export class FormsComponent implements OnInit {
     
     for(let entry of this.startups)
     {
-      if(entry.sid===startupID)
+      if(entry.formid===startupID)
       {
           this.currentevalStartup=entry;
           break;
       }
     }
   }
-  goToTop(formList:string)
+  goToTop(table:string)
   {
     console.log("gototop");
-    let x = document.querySelector("#"+formList);
+    let x = document.querySelector("#"+table);
     if (x){
         x.scrollIntoView();
     }
   }
   ngOnInit() {
-  }
-
-
-
-  
-  route1(){
-    this.router.navigate(['/addpanelist']);
-  }
-  route2(){
-    this.router.navigate(['/table-list']);
-  }
-  route3(){
-    this.router.navigate(['/forms']);
   }
   
 }

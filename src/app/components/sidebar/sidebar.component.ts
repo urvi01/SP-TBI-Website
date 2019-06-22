@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef, Input,NgModule, ViewChild, Output, EventEmitter } from '@angular/core';
 
 declare const $: any;
 declare interface RouteInfo {
@@ -28,7 +28,7 @@ export const ROUTES: RouteInfo[] = [
 })
 export class SidebarComponent implements OnInit {
   menuItems: any[];
-
+  @Output()loginFromSide=new EventEmitter<boolean>();
   constructor() { }
 
   ngOnInit() {
@@ -39,5 +39,11 @@ export class SidebarComponent implements OnInit {
           return false;
       }
       return true;
-  };
+  }
+  hideSidebar()
+  {
+    document.getElementById('login').style.display='block';
+      console.log("blabla");
+      this.loginFromSide.emit(false);
+  }
 }

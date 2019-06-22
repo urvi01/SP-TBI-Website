@@ -3,6 +3,7 @@ import { startupForm } from '../shared/models/user.model';
 import { UserService } from '../shared/service/user.service';
 import {SessionStorageService, SessionStorage} from 'ngx-webstorage';
 import { Jsonp } from '@angular/http';
+import { PlatformLocation } from '@angular/common';
 declare var $: any;
 @Component({
   selector: 'app-panelist',
@@ -15,6 +16,7 @@ export class PanelistComponent implements OnInit,OnChanges,OnDestroy {
   ngOnChanges() {
     console.log("onchanges");
   }
+  @Input()uname:string;
   @Input()limit:number;
   @Input()legal1:string;
   @Input()revenue1:string;
@@ -27,10 +29,10 @@ export class PanelistComponent implements OnInit,OnChanges,OnDestroy {
   currentEvalID:number;
   count:number=0;
   currentevalStartup:startupForm=new startupForm();
-  legalOption:string='select all';
-  revenueOption:string='select all';
-  workingOption:string='select all';
-  legalOptions=['YES','NO','select all'];
+  legalOption:string='SELECT ALL';
+  revenueOption:string='SELECT ALL';
+  workingOption:string='SELECT ALL';
+  legalOptions=['YES','NO','SELECT ALL'];
   flags=[false,false,false];
   temp1:string; //for legal,working,revenue options temporary 
   temp2:string;
@@ -43,34 +45,37 @@ export class PanelistComponent implements OnInit,OnChanges,OnDestroy {
   startupsBeforeReject:string;  //maintains a copy before reject
   startupsWhileReject=[];
   
-  constructor(private userService:UserService, public sstorage:SessionStorageService) {
-    console.log("constructor");
-    if(!sstorage.retrieve('startups') && sstorage.retrieve('username'))
+  constructor(private Location:PlatformLocation,private userService:UserService, public sstorage:SessionStorageService) {
+    console.log("constructor-panelist");
+    Location.onPopState(() => {
+      if(window.location.pathname!='/panelist')
+      {
+        this.Location.forward();
+      }   
+      });
+    this.getData();
+   }
+   getData()
+   {
+    if(!this.sstorage.retrieve('startups') && this.sstorage.retrieve('username'))
     {
       this.userService.getList().subscribe((data)=>{
             this.startups.push(data);
+            this.startupsCopy.push(data);
       });
-      this.startupsCopy=this.startups;
     }
-    if(!sstorage.retrieve('limit'))
-    {
       this.userService.getLimit().subscribe((data)=>{
-        this.limit=data['limit'];
+        this.limit=data['selectionLimit'];
         this.sstorage.store('limit',this.limit);
-  });
-    }
+         });
    }
-
    ngOnInit()
    {
-    console.log("ngoninit");
+    this.uname=this.userService.userName;
+    console.log("ngoninit-panelist");
     if(this.sstorage.retrieve('checkbox')=='true')
     {
       this.reject1=true;
-    }
-    if(this.sstorage.retrieve('limit'))
-    {
-      this.limit=this.sstorage.retrieve('limit');
     }
     if(this.sstorage.retrieve('startups'))
     {
@@ -108,10 +113,32 @@ export class PanelistComponent implements OnInit,OnChanges,OnDestroy {
   
    finalCheck()
    {
-     // this.userService.postList(this.list).subscribe();   //posting data back to db
+     if(confirm('Are you sure you want to submit ?\nIf you press OK, forms that have been accepted or rejected won’t be displayed .'))
+     {
+           // this.userService.postList(this.list).subscribe();   //posting data back to db
      console.log(this.startups);
      console.log("i got submitted");
      this.sessionStoring();
+     this.userService.postList(this.startupsCopy).subscribe(
+      (data)=> {
+        console.log("successful");					   
+      });
+      this.destroying();  
+      this.legal1='SELECT ALL';this.revenue1='SELECT ALL';this.work1='SELECT ALL';this.reject1=false;
+      this.legalOption='SELECT ALL';this.workingOption='SELECT ALL';this.revenueOption='SELECT ALL';
+      this.flags=[false,false,false];
+      setTimeout(() => {
+        this.startups=[];      //this varies with filtration
+        this.startupsCopy=[];  //this remains the same as original copy ...doesnt change ever
+        this.temp=[];            //this is used to push forms that satisfy condition in loop
+        this.moretemp=[];
+        this.startupsBeforeReject='';  //maintains a copy before reject
+        this.startupsWhileReject=[];
+        this.count=0;
+        this.getData();
+      }, 100);
+      
+     }
    }
   onAcceptReject(sid:number,val:string)
   {
@@ -120,9 +147,10 @@ export class PanelistComponent implements OnInit,OnChanges,OnDestroy {
       {
         for(let entry of this.startupsCopy)
         {
-          if(entry.sid===sid)
+          if(entry.formid===sid)
           {
-              entry.round='yes';
+            console.log("yess");
+              entry.status='yes';
               break;
           }
         }
@@ -131,9 +159,10 @@ export class PanelistComponent implements OnInit,OnChanges,OnDestroy {
       {
         for(let entry of this.startupsCopy)
         {
-          if(entry.sid===sid)
+          if(entry.formid===sid)
           {
-              entry.round='no';
+            console.log("noo");
+              entry.status='no';
               break;
           }
         }
@@ -146,7 +175,7 @@ export class PanelistComponent implements OnInit,OnChanges,OnDestroy {
     this.count=0;
     for(let entry of this.startupsCopy)
     {
-       if(entry.round==='yes')
+       if(entry.status==='yes')
           this.count++;
     }
     if(this.count>this.limit)
@@ -178,7 +207,7 @@ export class PanelistComponent implements OnInit,OnChanges,OnDestroy {
     
     for(let entry of this.startups)
     {
-      if(entry.sid==startupID)
+      if(entry.formid==startupID)
       {
           this.currentevalStartup=entry;
           break;
@@ -202,7 +231,7 @@ export class PanelistComponent implements OnInit,OnChanges,OnDestroy {
     {
       case 'YES':this.flags[0]=true;break;
       case 'NO':this.flags[0]=true;break;
-      case 'select all':this.flags[0]=false;break;
+      case 'SELECT ALL':this.flags[0]=false;break;
     }
     this.finalFiltering(0);
   }
@@ -215,7 +244,7 @@ export class PanelistComponent implements OnInit,OnChanges,OnDestroy {
     {
       case 'YES':this.flags[1]=true;break;
       case 'NO':this.flags[1]=true;break;
-      case 'select all':this.flags[1]=false;break;
+      case 'SELECT ALL':this.flags[1]=false;break;
     }
     this.finalFiltering(1);
   }
@@ -229,7 +258,7 @@ export class PanelistComponent implements OnInit,OnChanges,OnDestroy {
     {
       case 'YES':this.flags[2]=true;break;
       case 'NO':this.flags[2]=true;break;
-      case 'select all':this.flags[2]=false;break;
+      case 'SELECT ALL':this.flags[2]=false;break;
     }
     this.finalFiltering(2);
   }
@@ -246,7 +275,7 @@ export class PanelistComponent implements OnInit,OnChanges,OnDestroy {
             if(entry.legalEntity===this.legalOption)
               this.temp.push(entry);
           }
-          if(this.legalOption==='select all')
+          if(this.legalOption==='SELECT ALL')
             this.temp=this.startupsCopy;
 
             
@@ -301,7 +330,7 @@ export class PanelistComponent implements OnInit,OnChanges,OnDestroy {
             if(entry.operationalRevenue===this.revenueOption)
               this.temp.push(entry);
           }
-          if(this.revenueOption==='select all')
+          if(this.revenueOption==='SELECT ALL')
             this.temp=this.startupsCopy;
 
 
@@ -356,7 +385,7 @@ export class PanelistComponent implements OnInit,OnChanges,OnDestroy {
             if(entry.workingIdea===this.workingOption)
               this.temp.push(entry);
           }
-          if(this.workingOption==='select all')
+          if(this.workingOption==='SELECT ALL')
             this.temp=this.startupsCopy;
 
 
@@ -417,22 +446,22 @@ export class PanelistComponent implements OnInit,OnChanges,OnDestroy {
            if(this.flags[0]===false)
            {
              this.temp1=entry.legalEntity;
-             entry.legalEntity='select all';
+             entry.legalEntity='SELECT ALL';
            }
            
            if(this.flags[1]===false)
            {
              this.temp2=entry.operationalRevenue;
-             entry.operationalRevenue='select all';
+             entry.operationalRevenue='SELECT ALL';
            }
            if(this.flags[2]===false)
            {
              this.temp3=entry.workingIdea;
-             entry.workingIdea='select all';
+             entry.workingIdea='SELECT ALL';
            }                      
          if(entry.legalEntity===this.legalOption && entry.operationalRevenue===this.revenueOption && entry.workingIdea===this.workingOption)
          {
-           entry.round='no';
+           entry.status='no';
            this.onAcceptReject(entry.sid,'no');
          }
          
@@ -474,6 +503,13 @@ export class PanelistComponent implements OnInit,OnChanges,OnDestroy {
   ngOnDestroy()
   {
     console.log("destroyed");
+    this.sstorage.clear('username');
+    this.sstorage.clear('logged');
+    this.destroying();
+    // this.sessionStoring();
+  }
+  destroying()
+  {
     this.sstorage.clear('startupsBeforeReject');
     this.sstorage.clear('startupsCopy');
     this.sstorage.clear('startups');
@@ -483,9 +519,7 @@ export class PanelistComponent implements OnInit,OnChanges,OnDestroy {
     this.sstorage.clear('revenue');
     this.sstorage.clear('checkbox');
     this.sstorage.clear('limit');
-    this.sstorage.clear('username');
-    this.sstorage.clear('logged');
-    // this.sessionStoring();
+  
   }
 
 }

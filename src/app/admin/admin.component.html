@@ -1,0 +1,126 @@
+<div class="main-content">
+
+    <div class="container-fluid" >
+            <div class="nav-tabs-navigation">
+                    <div class="nav-tabs-wrapper">
+                        <ngb-tabset [justify]="'center'">
+                            <ngb-tab title="View Panelists">
+                                <ng-template ngbTabContent>
+                                    <app-table-list></app-table-list>
+                                  </ng-template>
+                            </ngb-tab>
+                            <ngb-tab title="View Ideas">
+                                <ng-template ngbTabContent>
+                                    <app-forms></app-forms>
+                                </ng-template>
+                            </ngb-tab>
+                            <ngb-tab title="Rounds" *ngIf=true>
+                                <ng-template ngbTabContent>
+                                <div style="position:relative;overflow:hidden;" width="100%" height="700px">
+                                     
+ 
+                                    <div class="row" style="position:relative">
+                                        <div class="col-md-8"></div>
+                                        <div class="col-md-4" >
+                                            <h3 style="color:black;text-align:justify">DAY : {{time | date:'dd.MM.yyyy'}}<br/><b>{{time | date:'HH:mm:ss'}}</b></h3>
+                                                <button *ngIf="round1end" class="round1" id="round1" type="submit" (click)="Round1()" style="margin-top:15%;">
+                                                        <span class="text" style="font-size:15px;"><b> Start Round 1</b></span>
+                                                        <span class="btnBefore"></span>
+                                                        <span class="btnAfter"></span>
+                                                </button>
+                                                <button class="round1" id="round1end" *ngIf="!round1end" style="margin-top:15%;background-color:rgb(26, 63, 116,0.6);">
+                                                    <span class="text" style="font-size:15px;"><b> Start Round 1</b></span>
+                                                    <span class="btnBefore"></span>
+                                                    <span class="btnAfter"></span>
+                                                </button>
+                                                <button class="round2" *ngIf="round2end" id="round2" type="submit" (click)="Round2()" style="margin-top:30%;margin-bottom:20%">
+                                                        <span class="text" style="font-size:15px;"><b> Start Round 2 </b></span>
+                                                        <span class="btnBefore"></span>
+                                                        <span class="btnAfter"></span>
+                                                </button>
+                                                <button class="round2" *ngIf="!round2end" id="round2end" style="margin-top:30%;margin-bottom:20%;background-color:rgb(26, 63, 116,0.6);">
+                                                    <span class="text" style="font-size:15px;"><b> Start Round 2 </b></span>
+                                                    <span class="btnBefore"></span>
+                                                    <span class="btnAfter"></span>
+                                                </button>
+                                                <button class="startreg" *ngIf="round2end" id="startregend" style="margin-top:30%;margin-bottom:20%;background-color:rgb(26, 63, 116,0.6);">
+                                                    <span class="text" style="font-size:15px;"><b> Start Registration </b></span>
+                                                    <span class="btnBefore"></span>
+                                                    <span class="btnAfter"></span>
+                                                </button>
+                                                <button class="startreg" *ngIf="!round2end" id="startreg" type="submit" (click)="StartReg()" style="margin-top:30%;margin-bottom:20%;">
+                                                    <span class="text" style="font-size:15px;"><b> Start Registration </b></span>
+                                                    <span class="btnBefore"></span>
+                                                    <span class="btnAfter"></span>
+                                                </button>
+                                        </div>
+                                    </div>
+                                    <img src="/assets/img/lastday.jpeg" width="100%" height="700px" style="opacity:0.5;position:absolute; left: 0;
+                                    top: 0;">
+                                </div>
+                                
+                                <div id="modalround1" class="modalround1"> 
+                                        <div class="modal-content animate">
+                                            <h3>Are you sure you want to start Round1 ?</h3>
+                                            <h5><b>No more forms will be taken into registration.</b></h5>
+                                            <div class="row">
+                                                <div class="col-md-6 col-sm-6"> </div>
+                                                <div class="col-md-3 col-sm-3">
+                                                    <button class="btn btn-round btn-success" (click)="roundstart1()" style="width:90%;color:white;font-weight:700;">OK</button>
+                                                </div>
+                                                <div class="col-md-3 col-sm-3">
+                                                    <button class="btn btn-round btn-danger" (click)="close()" style="width:90%;color:white;font-weight:700;">CANCEL</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                </div>
+
+                                <div id="modalround2" class="modalround2"> 
+                                        <div class="modal-content animate">
+                                                <h3>Are you sure you want to start Round2 ?</h3>
+                                                <h5><b>No more forms will be selected for Round2.</b></h5>
+                                                <div class="row">
+                                                    <div class="col-md-6 col-sm-6"> </div>
+                                                    <div class="col-md-3 col-sm-3">
+                                                        <button class="btn btn-round btn-success" (click)="roundstart2()" style="width:90%;color:white;font-weight:700;">OK</button>
+                                                    </div>
+                                                    <div class="col-md-3 col-sm-3">
+                                                        <button class="btn btn-round btn-danger" (click)="close()" style="width:90%;color:white;font-weight:700;">CANCEL</button>
+                                                    </div>
+                                                </div>
+                                        </div>
+                                </div>
+                                <div id="startregmodal" class="startregmodal"> 
+                                    <div class="modal-content animate">
+                                            <h3>Do you want to start the registration again ?</h3>
+                                            <h5><b>Please note that ALL the old registrations shall be deleted</b></h5>
+                                            <div class="row">
+                                                <div class="col-md-6 col-sm-6"> </div>
+                                                <div class="col-md-3 col-sm-3">
+                                                    <button class="btn btn-round btn-success" (click)="StartRegistration()" style="width:90%;color:white;font-weight:700;">OK</button>
+                                                </div>
+                                                <div class="col-md-3 col-sm-3">
+                                                    <button class="btn btn-round btn-danger" (click)="close()" style="width:90%;color:white;font-weight:700;">CANCEL</button>
+                                                </div>
+                                            </div>
+                                    </div>
+                            </div>
+                                <div id="stopround2" class="stopround2"> 
+                                        <div class="modal-content animate">
+                                                <h4>Following Panelist have still not reviewed the given forms.</h4>
+                                                <h6 *ngFor="let panelist of pendingObject"><b>{{panelist.panelistNameWithPendingWork}}</b></h6>
+                                                <div class="row">
+                                                    <div class="col-md-9 col-sm-9"> </div>
+                                                    <div class="col-md-3 col-sm-3">
+                                                        <button class="btn btn-round btn-danger" (click)="close()" style="width:90%;color:white;font-weight:700;">CANCEL</button>
+                                                    </div>
+                                                </div>
+                                        </div>
+                                </div>
+                                </ng-template>
+                            </ngb-tab>
+                        </ngb-tabset>
+                    </div>
+            </div>
+    </div>
+</div>

@@ -1,53 +1,53 @@
-<nav class="navbar navbar-transparent navbar-absolute">
+<nav  class="navbar navbar-absolute" style="background-color: #e9ecf3" >
+
     <div class="container-fluid">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" (click)="sidebarToggle()">
-                <span class="sr-only">Toggle navigation</span>
+        <div class="navbar-header" style="text-align:center;">
+                <div  *ngIf="Logged" class="navbar-brand" style="font-weight: 500;font-size: 30px;" >   <!--for cite-->
+                    CITE Application Portal
+                    <!-- &nbsp;&nbsp;&nbsp;CITE -->
+                    
+                </div>
+                <div class="row">
+                    <div class="col-md-3"><img *ngIf="!Logged && admin" src="/assets/img/head.png" style="width:40px;height:40px;"/></div>
+                    <div *ngIf="!Logged && admin" class="navbar-brand col-md-9" style="font-weight: 500;font-size: 20px;"> <!--for admin-->
+                        <strong>Hello Admin ,</strong>
+                   </div>
+                </div>
+                
+                <div class="row">
+                        <div class="col-md-3"><img *ngIf="!Logged && !admin" src="/assets/img/head.png" style="width:40px;height:40px;"/></div>
+                        <div *ngIf="!Logged && !admin" class="navbar-brand" style="font-weight: 500;font-size: 20px;"> <!--for panelist-->
+                            <strong>Hello {{panelname}} ,</strong>
+                        </div>
+                    </div>
+                
+            <button  type="button" class="navbar-toggle" data-toggle="collapse" (click)="sidebarToggle()">
+                <span class="sr-only"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <!-- <a class="navbar-brand" href="#">{{getTitle()}}</a> -->
-            <div ng-if="Logged; then block else block2">
-                <ng-template #block>
-                <a class="navbar-brand" href="#">Add Panelist</a>
-                <a class="navbar-brand" href="#">View Panelist</a>
-                <a class="navbar-brand" href="#">View Ideas</a>
-                </ng-template>
-                <ng-template #block2>
-                    <a class="navbar-brand" href="#">Add Panelist</a>
-                </ng-template>
-            </div>
         </div>
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav navbar-right">
-                    <li>
-                            <a>
-                            <div (click)="Dash()">    
-                                <i class="material-icons">dashboard</i>
-                                <p class="hidden-lg hidden-md">Dashboard</p>
-                            </div>
-                            </a>
-                        </li>
+                    <!-- <li>
+                            <button (click)="Dash()" type="button" rel="tooltip" title="Dashboard" class="btn btn-danger btn-simple"><i class="material-icons" style="font-size:20px;color:black;padding-bottom:5px">dashboard</i></button>
+                        </li> -->
                         <li *ngIf="Logged">
-                            <a>
-                            <div onclick="document.getElementById('login').style.display='block'">
-                               <i class="material-icons" >person</i>
-                               <p class="hidden-lg hidden-md">Profile</p>
-                            </div>
-                            </a>
+                            <button onclick="document.getElementById('login').style.display='block'" type="button" rel="tooltip" title="LOG IN" class="btn btn-danger btn-simple"><i class="material-icons" style="font-size:30px;color:black;padding-bottom:5px" >person</i></button>
                         </li>
                         <li *ngIf="!Logged">
+                                <button type="button" rel="tooltip" title="LOG OUT" class="btn btn-danger btn-simple">
                             <a (click)="logout()">
-                                    <span style="font-size:17px" class="glyphicon glyphicon-log-out"></span>
-                            </a>
+                                    <span style="font-size:20px;color:black;" class="glyphicon glyphicon-log-out"></span>
+                            </a></button>
                         </li>
             </ul>
         </div>
         <div *ngIf="Logged" id="login" class="modal"> 
             <form class="modal-content animate">
               <div class="imgcontainer">
-                <span onclick="document.getElementById('login').style.display='none'" class="close" title="Close Modal">&times;</span>
+                <span (click)="closeModal();" class="close" title="Close Login">&times;</span>
               </div>
               <div class="container">
                   
@@ -55,15 +55,19 @@
                 <input #uname type="text" name="uname" id="uname" required />
               
                 <br/>
-                <span class="glyphicon glyphicon-lock"></span>&nbsp;&nbsp;<label for="psw"><b>Password</b></label><br/>
+                <span class="glyphicon glyphicon-lock" ></span>&nbsp;&nbsp;<label for="psw"><b>Password</b></label><br/>
                 <input #psw type="password" name="psw" id="psw" required />
                 
                 
               </div>
           
               <div class="container" style="position:center;width:75%">
-                <button class="login" id="login" type="submit" (click)="Login($event)">Login</button>
-            </div>      
+                    <button class="login" id="login" type="submit" (click)="Login($event)">
+                        <span class="text"><b>Login</b></span>
+                        <span class="btnBefore"></span>
+                        <span class="btnAfter"></span>
+                    </button>
+                </div>     
                 
             </form>
         </div>

@@ -1,16 +1,16 @@
-<div class="logo">
+<div class="logo" style="height:80px;padding-top:0px;">
     
        
         <div class="logo-img">
-            <img src="/assets/img/sptbi_sidebar.png" style="width:70px;height:70px;margin-bottom:10px"/>
+            <img src="/assets/img/sptbi_sidebar.png" style="width:100px;margin-top:6px;margin-left: 55px;"/>
     </div>
     
-      <div class="text-center" style="font-size:20px;color:#1a3f74;margin-left:20px"><strong>SP TBI</strong></div>
+      <!--<div class="text-center" style="font-size:20px;color:#1a3f74;margin-left:20px"><strong>SP TBI</strong></div>-->
     
 </div>
 <div class="sidebar-wrapper">
 
-    <ul class="nav nav-mobile-menu" *ngIf="isMobileMenu()">
+    <ul class="nav nav-mobile-menu"  *ngIf="isMobileMenu()">
             <li>
                     <a>
                     <div (click)="Dash()">    
@@ -19,22 +19,22 @@
                     </div>
                     </a>
                 </li>
-                <li *ngIf="Logged">
+                <li *ngIf="!Logged">
                     <a>
-                    <div onclick="document.getElementById('login').style.display='block'">
+                    <div (click)="hideSidebar();">
                        <i class="material-icons" >person</i>
                        <p class="hidden-lg hidden-md">Profile</p>
                     </div>
                     </a>
                 </li>
-                <li *ngIf="!Logged">
+                <li *ngIf="Logged">
                     <a (click)="logout()">
                             <span style="font-size:17px" class="glyphicon glyphicon-log-out"></span>
                     </a>
                 </li>
     </ul>
 
-    <div class="nav-container">
+    <div class="nav-container" >
         <ul class="nav">
             <li routerLinkActive="active" *ngFor="let menuItem of menuItems" class="{{menuItem.class}}">
                 <a  [routerLink]="[menuItem.path]">
@@ -45,3 +45,4 @@
         </ul>
     </div>
 </div>
+

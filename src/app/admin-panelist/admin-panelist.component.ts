@@ -13,7 +13,7 @@ export class AdminPanelistComponent implements OnInit {
 
   private static Round1: boolean;
   private static Round2: boolean;
-  private static Round: string = "None";
+  private static Round: number;
   private static obj: any;
   private static output: string;
   private static test:any;
@@ -44,34 +44,34 @@ export class AdminPanelistComponent implements OnInit {
       return;
     }
     if(AdminPanelistComponent.Round1)
-      AdminPanelistComponent.Round="Round1";
+      AdminPanelistComponent.Round=1;
     else if(AdminPanelistComponent.Round2)
-      AdminPanelistComponent.Round="Round2";
-    AdminPanelistComponent.obj=JSON.stringify({"Round":AdminPanelistComponent.Round,"ID":e.target.elements[2].value, "Password":e.target.elements[3].value,"Startups":e.target.elements[4].value,"Category":e.target.elements[5].value});
+      AdminPanelistComponent.Round=2;
+    AdminPanelistComponent.obj={"round":AdminPanelistComponent.Round,"userName":e.target.elements[2].value, "password":e.target.elements[3].value,"selectionLimit":e.target.elements[4].value,"category":e.target.elements[5].value};
     AdminPanelistComponent.output=AdminPanelistComponent.obj;
     console.log(AdminPanelistComponent.output);
     this.Table.addToList(AdminPanelistComponent.output);
     this.Table.addPanelist(AdminPanelistComponent.output).subscribe(
-      string=>{console.log("Successful");
+      data=>{console.log("Successful");
       }
     );
   }
 
   DeletePanelist(e){
     if(AdminPanelistComponent.Round1)
-      AdminPanelistComponent.Round="Round1";
+      AdminPanelistComponent.Round=1;
     else if(AdminPanelistComponent.Round2)
-      AdminPanelistComponent.Round="Round2";
+      AdminPanelistComponent.Round=2;
     if(e.target.elements[2].value === "" || e.target.elements[3].value === ""){
       alert("Some Fields are missing");
       return;
     }
-      AdminPanelistComponent.obj=JSON.stringify({"Round":AdminPanelistComponent.Round,"ID":e.target.elements[2].value,"Category":e.target.elements[3].value});
-      AdminPanelistComponent.output=AdminPanelistComponent.obj;
+      //AdminPanelistComponent.obj=JSON.stringify({"Round":AdminPanelistComponent.Round,"ID":e.target.elements[2].value,"Category":e.target.elements[3].value});
+      //AdminPanelistComponent.output=AdminPanelistComponent.obj;
       //console.log(AdminPanelistComponent.output);
-      this.Table.delFromList(AdminPanelistComponent.output);
-      this.Table.deletePanelist(AdminPanelistComponent.output).subscribe(
-        string=>{console.log("Successful");
+      //this.Table.delFromList(AdminPanelistComponent.output);
+      this.Table.deletePanelist(e.target.elements[2].value).subscribe(
+        data=>{console.log("Successful");
         }
       );
   }
